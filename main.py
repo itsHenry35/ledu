@@ -14,9 +14,9 @@ def config(): #read config
     data = yaml.load(configfile,Loader=yaml.FullLoader)
     user = data['username']
     password = data['password']
-    aria2c_name = get_aria2c_name() #get which aria2c binary to use
+    aria2c_name = get_platform_info() #get which aria2c binary to use
 
-def get_aria2c_name():
+def get_platform_info():
     if platform == 'win':
         aria2c_name = 'aria2c_win.exe'
     elif platform == 'linux':
@@ -25,8 +25,14 @@ def get_aria2c_name():
         aria2c_name = 'aria2c_macos'
     elif platform == 'android':
         aria2c_name = 'aria2c_android'
+        try: 
+            os.system('termux-setup-storage')
+        except:
+            print('建议使用Termux，其他终端暂未测试！')
+
+
     else:
-        print('不支持的系统！请使用Windows、Linux、MacOSX或Android系统！') #if the system is not supported, print out(ios and unknown kernels are not supported yet)
+        print('暂不支持的系统！请使用Windows、Linux、MacOSX或Android系统！') #if the system is not supported, print out(ios and unknown kernels are not supported yet)
         sys.exit()
     return aria2c_name
 
