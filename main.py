@@ -33,6 +33,7 @@ def get_platform_info():
 
     else:
         print('暂不支持的系统！请使用Windows、Linux、MacOSX或Android系统！') #if the system is not supported, print out(ios and unknown kernels are not supported yet)
+        input("") #let users see the message
         sys.exit()
     return aria2c_name
 
@@ -61,6 +62,7 @@ def pwdverify():
     if json['errcode'] == 0: # no error, then login
         return json['data']
     else:
+        input("") #let users see the message
         sys.exit() # error, after printing error msg, quit the program
 
 
