@@ -1,16 +1,36 @@
 # import the things we need
+from xml.etree.ElementInclude import include
 import requests
 import sys
 import os
 import yaml
+from kivy.utils import platform
 
 def config(): #read config
     global user
     global password
+    global aria2c_name
     configfile = open('config.yaml', 'r', encoding="utf-8")
     data = yaml.load(configfile,Loader=yaml.FullLoader)
     user = data['username']
     password = data['password']
+    aria2c_name = get_aria2c_name() #get which aria2c binary to use
+
+def get_aria2c_name():
+    if platform == 'win':
+        aria2c_name = 'aria2c_win.exe'
+    elif platform == 'linux':
+       aria2c_name = 'aria2c_linux'
+    elif platform == 'macosx':
+        aria2c_name = 'aria2c_macos'
+    elif platform == 'android':
+        aria2c_name = 'aria2c_android'
+    else:
+        print('不支持的系统！请使用Windows、Linux、MacOSX或Android系统！') #if the system is not supported, print out(ios and unknown kernels are not supported yet)
+        sys.exit()
+    return aria2c_name
+
+    
 
 def pwdverify():
     url= "https://passport.100tal.com/v1/web/login/pwd" #password verify api
@@ -110,7 +130,7 @@ def userchoosetutorid(): # let users to choose what to download
 def getlecturers():
     url = "https://course-api-online.saasp.vdyoo.com/course/v1/student/course/user-live-list" #all the lecturers
     list = userchoosetutorid()
-    global courseid
+    global courseid #used in getlecturerinfo
     global classid
     global subjectid
     global tutorid
@@ -133,8 +153,8 @@ def getlecturers():
     data = requests.get(url, headers = headers) # get lecturers
     json = data.json()
     classid = json[0]['stdClassId']
-    subjectid = json[0]['stdSubject']
-    lecturerid = json[0]['lecturerId']
+    subjectid = json[0]['stdSubject'] #get the classid and subjectid
+    lecturerid = json[0]['lecturerId'] #get the lecturer id all from the first lecturer
     count = 1
     for i in json:
         liveid [count] = i['liveId']
@@ -168,11 +188,11 @@ def getdownloadurl(id):
 
 
 def aria2_download(filename, url):
-    path = 'downloaded\\' + name
-    if not os.path.exists(path):  # create the downloaded folder
+    path = os.path.join('downloaded', name) #create a folder to store the downloaded files
+    if not os.path.exists(path):
         os.makedirs(path) 
     arguments = ' -d ' + path + ' -j 64 --file-allocation=none ' + ' -o ' + filename # dir is downloads and the name, 64 thread fast downloading and filename should be changed as it is given when using aria2_download
-    run = 'aria2c.exe ' + url + arguments # finally generate the command of aria2
+    run = './bin/'+ aria2c_name + ' ' + url + arguments # finally generate the command of aria2
     os.system(run) # run it!
     
 def download():
@@ -185,7 +205,7 @@ def download():
     for i in downloadurls:
         aria2_download(i, downloadurls[i])
     
-    
+
 
 config() #run everything at last
 logindata = login() # fetch the global data
