@@ -9,33 +9,33 @@ from kivy.utils import platform
 def config(): #read config
     global user
     global password
-    global aria2c_name
+    global aria2c_path
     configfile = open('config.yaml', 'r', encoding="utf-8")
     data = yaml.load(configfile,Loader=yaml.FullLoader)
     user = data['username']
     password = data['password']
-    aria2c_name = get_platform_info() #get which aria2c binary to use
+    aria2c_path = get_platform_info() #get which aria2c binary to use
 
 def get_platform_info():
     if platform == 'win':
-        aria2c_name = 'aria2c_win.exe'
+        aria2c_path = 'bin\\aria2c_win.exe'
     elif platform == 'linux':
-       aria2c_name = 'aria2c_linux'
+       aria2c_path = './bin/aria2c_linux'
     elif platform == 'macosx':
-        aria2c_name = 'aria2c_macos'
+        aria2c_path = './aria2c_macos'
     elif platform == 'android':
-        aria2c_name = 'aria2c_android'
+        aria2c_path = './aria2c_android'
         try: 
             os.system('termux-setup-storage')
         except:
             print('建议使用Termux，其他终端暂未测试！')
-
-
     else:
         print('暂不支持的系统！请使用Windows、Linux、MacOSX或Android系统！') #if the system is not supported, print out(ios and unknown kernels are not supported yet)
         input("") #let users see the message
         sys.exit()
-    return aria2c_name
+    return aria2c_path
+
+
 
     
 
@@ -200,7 +200,7 @@ def aria2_download(filename, url):
     if not os.path.exists(path):
         os.makedirs(path) 
     arguments = ' -d ' + path + ' -j 64 --file-allocation=none ' + ' -o ' + filename # dir is downloads and the name, 64 thread fast downloading and filename should be changed as it is given when using aria2_download
-    run = './bin/'+ aria2c_name + ' ' + url + arguments # finally generate the command of aria2
+    run = aria2c_path + ' ' + url + arguments # finally generate the command of aria2
     os.system(run) # run it!
     
 def download():
