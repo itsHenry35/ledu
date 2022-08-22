@@ -1,4 +1,3 @@
-pyyaml
 requests
 ttkbootstrap
-tkinter
+anaconda
