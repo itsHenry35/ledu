@@ -3,14 +3,20 @@ import requests
 import sys
 import os
 from kivy.utils import platform
+import sys, os
 
 def get___(): #read config and do the preparation stuffs
     global aria2c_path
     aria2c_path = get_platform_info() #get which aria2c binary to use
 
 def get_platform_info():
+    if getattr(sys, 'frozen', False): # we are running in a bundle
+        bundle_dir = sys._MEIPASS # This is where the files are unpacked to
+    else: # normal Python environment
+        bundle_dir = os.path.dirname(os.path.abspath(__file__))
+
     if platform == 'win':
-        aria2c_path = 'bin\\aria2c_win.exe'
+        aria2c_path = bundle_dir + '\\bin\\aria2c_win.exe'
     elif platform == 'linux':
        aria2c_path = './bin/aria2c_linux'
     elif platform == 'macosx':
