@@ -38,10 +38,10 @@ jobs:
         with:
           tag_name: release
           files: |
-              D:\a\ledu\ledu\output\main.exe
+              %USERPROFILE%\output\main.exe
           
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
           name: "Windows-build"
-          path: "D:/a/ledu/ledu/output"
+          path: "%USERPROFILE%/output"
