@@ -1,39 +1,6 @@
 # import the things we need
 import requests
-import sys
 import os
-from kivy.utils import platform
-import sys, os
-
-def get___(): #read config and do the preparation stuffs
-    global aria2c_path
-    aria2c_path = get_platform_info() #get which aria2c binary to use
-
-def get_platform_info():
-    if getattr(sys, 'frozen', False): # we are running in a bundle
-        bundle_dir = sys._MEIPASS # This is where the files are unpacked to
-    else: # normal Python environment
-        bundle_dir = os.path.dirname(os.path.abspath(__file__))
-
-    if platform == 'win':
-        aria2c_path = bundle_dir + '\\bin\\aria2c_win.exe'
-    elif platform == 'linux':
-       aria2c_path = './bin/aria2c_linux'
-    elif platform == 'macosx':
-        aria2c_path = './bin/aria2c_macos'
-    elif platform == 'android':
-        aria2c_path = './bin/aria2c_android'
-        try: 
-            os.system('termux-setup-storage')
-        except:
-            print('建议使用Termux，其他终端暂未测试！')
-    else:
-        print('暂不支持的系统！请使用Windows、Linux、MacOSX或Android系统！') #if the system is not supported, print out(ios and unknown kernels are not supported yet)
-        input("") #let users see the message
-        sys.exit()
-    return aria2c_path
-
-
 
 def getlecturers(list, uid, token):
     url = "https://course-api-online.saasp.vdyoo.com/course/v1/student/course/user-live-list" #all the lecturers
@@ -104,8 +71,9 @@ def aria2_download(filename, url):
     run = aria2c_path + ' ' + url + arguments # finally generate the command of aria2
     os.system(run) # run it!
     
-def download2(list, uid, token):
-    get___()
+def download2(list, uid, token, path__):
+    global aria2c_path
+    aria2c_path = path__ #get which aria2c binary to use
     id = getlecturers(list, uid, token)
     downloadurls = {}
     for i in id:
