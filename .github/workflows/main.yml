@@ -24,8 +24,24 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Install Dependencies
         run: |
-          ls
+          pip install -r requirements.txt
+          pip install pyinstaller
+      
+      - name: Build the artifact
+        run: |
+          pyinstaller --noconfirm --onefile --console --icon "D:/a/ledu/ledu/ledu.ico" --add-data "D:/a/ledu/ledu/bin/aria2c_win.exe;bin/"  "D:/a/ledu/ledu/main.py"
+          
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: release
+          files: |
+              D:\a\ledu\ledu\output\main.exe
+          
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: "Windows-build"
+          path: "D:/a/ledu/ledu/output"
