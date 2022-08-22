@@ -25,13 +25,15 @@ def getcourse(uid, token):
 def download1(uid, token):
     def downnextpage():
         for i in widgetlist:
-            downtutorid = courselist[numlist[i]]
-            downcourseid = idlist[numlist[i]]
-            name = numlist[i]
-            returnlist['tutorid'] = downtutorid
-            returnlist['courseid'] = downcourseid
-            returnlist['name'] = name
-        root.destroy()
+            if 'selected' in widgetlist[i].state():
+                downtutorid = courselist[numlist[i]]
+                downcourseid = idlist[numlist[i]]
+                name = numlist[i]
+                returnlist['tutorid'] = downtutorid
+                returnlist['courseid'] = downcourseid
+                returnlist['name'] = name
+                root.destroy()
+                break
     root = ttk.Window(title = '乐读视频下载器-下载', themename="morph")
     root.geometry('1280x720')
     data = getcourse(uid, token)
