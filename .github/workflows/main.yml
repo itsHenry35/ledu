@@ -79,7 +79,7 @@ jobs:
       - name: Build and rename the artifact
         run: |
           pyinstaller --noconfirm --onefile --windowed --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_linux_amd64:bin/"  "/home/runner/work/ledu/ledu/main.py"
-          rm /home/runner/work/ledu/ledu/dist/main /home/runner/work/ledu/ledu/dist/ledu_download_linux_amd64
+          cp /home/runner/work/ledu/ledu/dist/main /home/runner/work/ledu/ledu/dist/ledu_download_linux_amd64
           
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -113,23 +113,22 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
-          ls
           
       
       - name: Build and rename the artifact
         run: |
-          pyinstaller --noconfirm --onefile --windowed --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_macos:bin/"  "/home/runner/work/ledu/ledu/main.py"
-          rm /home/runner/work/ledu/ledu/dist/main /home/runner/work/ledu/ledu/dist/ledu_download_linux_macos
+          pyinstaller --noconfirm --onefile --windowed --icon "/Users/runner/work/ledu/ledu/ledu.ico" --add-data "/Users/runner/work/ledu/ledu/bin/aria2c_macos:bin/"  "/Users/runner/work/ledu/ledu/main.py"
+          cp /Users/runner/work/ledu/ledu/dist/main /Users/runner/work/ledu/ledu/dist/ledu_download_macos
           
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: release
           files: |
-              /home/runner/work/ledu/ledu/dist/ledu_download_macos
+              /Users/runner/work/ledu/ledu/dist/ledu_download_macos
           
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
-          name: "Linux-build"
-          path: "/home/runner/work/ledu/ledu/dist"
+          name: "MacOs-build"
+          path: "/Users/runner/work/ledu/ledu/dist"
