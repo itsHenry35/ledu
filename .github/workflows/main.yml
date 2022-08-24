@@ -74,23 +74,62 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
-          cd /home/runner/work/ledu/ledu
-          ls
           
       
-      - name: Build the artifact
+      - name: Build and rename the artifact
         run: |
           pyinstaller --noconfirm --onefile --windowed --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_linux_amd64:bin/"  "/home/runner/work/ledu/ledu/main.py"
+          rm /home/runner/work/ledu/ledu/dist/main /home/runner/work/ledu/ledu/dist/ledu_download_linux_amd64
           
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: release
           files: |
-              /home/runner/work/ledu/ledu/dist/main
+              /home/runner/work/ledu/ledu/dist/ledu_download_linux_amd64
           
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
-          name: "Windows-build"
+          name: "Linux-build"
+          path: "/home/runner/work/ledu/ledu/dist"
+
+  Build_Macos:
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.6
+         
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+          ls
+          
+      
+      - name: Build and rename the artifact
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_macos:bin/"  "/home/runner/work/ledu/ledu/main.py"
+          rm /home/runner/work/ledu/ledu/dist/main /home/runner/work/ledu/ledu/dist/ledu_download_linux_macos
+          
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: release
+          files: |
+              /home/runner/work/ledu/ledu/dist/ledu_download_macos
+          
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: "Linux-build"
           path: "/home/runner/work/ledu/ledu/dist"
