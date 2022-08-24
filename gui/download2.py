@@ -82,11 +82,11 @@ def download2(list, uid, token, path__):
                 stat = jsonrpc.tellStatus(gid = str(gid_group[filename]))
                 if stat['status'] != 'complete':
                     stat = jsonrpc.tellStatus(str(gid_group[filename]))
-                    if int(stat['totalLength']) != 0:
-                        tkinterlist[filename]['progress'].value = int(stat['completedLength']) / int(stat['totalLength']) * 100
+                    if int(stat['totalLength']) != 0 and int(stat['completedLength']) != 0:
+                        tkinterlist[filename]['progress']['value'] = int(stat['completedLength']) / int(stat['totalLength']) * 100
                         tkinterlist[filename]['progress'].update()
                         tkinterlist[filename]['percentage'].configure(text=str("%.2f"%((int(stat['completedLength']) / int(stat['totalLength']) * 100))) + '%')
-                        tkinterlist[filename]['speed'].configure(text='下载速度：' + round(str(int(stat['downloadSpeed'])/1024/1024), 2) + 'MB/s')
+                        tkinterlist[filename]['speed'].configure(text='下载速度：' + str(round(int(stat['downloadSpeed'])/1024/1024, 2)) + 'MB/s')
             time.sleep(0.1)
     root = ttk.Window(title = '乐读视频下载器-下载', themename="morph")
     root.geometry('1280x720')
@@ -110,9 +110,9 @@ def download2(list, uid, token, path__):
         progress.maximum = 100
         progress.value = 0
         text0 = ttk.Label(text = '0%')
-        text0.grid(row=count, column=1)
+        text0.grid(row=count, column=2)
         text1 = ttk.Label(text = '下载速度：Nah')
-        text1.grid(row=count, column=2)
+        text1.grid(row=count, column=3)
         tkinterlist[i] = {
             'progress': progress,
             'percentage': text0,
