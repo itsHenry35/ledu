@@ -90,7 +90,7 @@ def download2(list, uid, token, path__):
             time.sleep(0.1)
     root = ttk.Window(title = '乐读视频下载器-下载', themename="morph")
     root.geometry('1280x720')
-    aria2process = subprocess.Popen(path__ + ' --enable-rpc --rpc-listen-port=6800 --max-connection-per-server=16 --file-allocation=none -j=64',shell=True)
+    aria2process = subprocess.Popen(path__ + ' --enable-rpc --rpc-listen-port=6800 --max-connection-per-server=16 --file-allocation=none -j 64',shell=True)
     jsonrpc = Aria2RPC()
     id = getlecturers(list, uid, token)
     downloadurls = {}
