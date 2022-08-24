@@ -1,3 +1,4 @@
 requests
 anaconda
 ttkbootstrap
+pyaria2
