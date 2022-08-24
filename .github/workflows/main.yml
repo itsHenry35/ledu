@@ -37,16 +37,17 @@ jobs:
           pip install pyinstaller
           
       
-      - name: Build the artifact
+      - name: Build and rename the artifact
         run: |
           pyinstaller --noconfirm --onefile --windowed --icon "D:/a/ledu/ledu/ledu.ico" --add-data "D:/a/ledu/ledu/bin/aria2c_win.exe;bin/"  "D:/a/ledu/ledu/main.py"
+          ren D:\a\ledu\ledu\dist\main.exe D:\a\ledu\ledu\dist\ledu_download_win64.exe
           
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: release
           files: |
-              D:\a\ledu\ledu\dist\main.exe
+              D:\a\ledu\ledu\dist\ledu_download_win64.exe
           
       - name: Upload
         uses: actions/upload-artifact@v2
@@ -70,10 +71,11 @@ jobs:
          
       - name: Install Dependencies
         run: |
-          ls
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
+          cd /home/runner/work/ledu/ledu
+          ls
           
       
       - name: Build the artifact
