@@ -39,7 +39,7 @@ jobs:
       
       - name: Build the artifact
         run: |
-          pyinstaller --noconfirm --onefile --console --icon "D:/a/ledu/ledu/ledu.ico" --add-data "D:/a/ledu/ledu/bin/aria2c_win.exe;bin/"  "D:/a/ledu/ledu/main.py"
+          pyinstaller --noconfirm --onefile --windowed --icon "D:/a/ledu/ledu/ledu.ico" --add-data "D:/a/ledu/ledu/bin/aria2c_win.exe;bin/"  "D:/a/ledu/ledu/main.py"
           
       - name: Release
         uses: softprops/action-gh-release@v1

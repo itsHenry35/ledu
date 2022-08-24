@@ -55,4 +55,5 @@ def download1(uid, token):
     submit = ttk.Button(text='提交', bootstyle="primary", command=downnextpage)
     submit.grid (row = count, column = 0)
     root.mainloop()
+    importlib.reload(ttk.style)
     return returnlist
