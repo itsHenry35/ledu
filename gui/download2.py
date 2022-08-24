@@ -82,7 +82,7 @@ def download2(list, uid, token, path__):
                 stat = jsonrpc.tellStatus(gid = str(gid_group[filename]))
                 if stat['status'] != 'complete':
                     stat = jsonrpc.tellStatus(str(gid_group[filename]))
-                    if int(stat['totalLength']) != 0 and int(stat['completedLength']) != 0:
+                    if int(stat['totalLength']) != 0:
                         tkinterlist[filename]['progress'].value = int(stat['completedLength']) / int(stat['totalLength']) * 100
                         tkinterlist[filename]['progress'].update()
                         tkinterlist[filename]['percentage'].configure(text=str("%.2f"%((int(stat['completedLength']) / int(stat['totalLength']) * 100))) + '%')
