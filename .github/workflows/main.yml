@@ -80,7 +80,7 @@ jobs:
       
       - name: Build the artifact
         run: |
-          pyinstaller --noconfirm --onefile --windowed --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_linux_amd64;bin/"  "/home/runner/work/ledu/ledu/main.py"
+          pyinstaller --noconfirm --onefile --windowed --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_linux_amd64:bin/"  "/home/runner/work/ledu/ledu/main.py"
           
       - name: Release
         uses: softprops/action-gh-release@v1
