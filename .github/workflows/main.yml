@@ -78,17 +78,17 @@ jobs:
       
       - name: Build the artifact
         run: |
-          pyinstaller --noconfirm --onefile --windowed --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_win.exe;bin/"  "/home/runner/ledu/main.py"
+          pyinstaller --noconfirm --onefile --windowed --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_linux_amd64;bin/"  "/home/runner/work/ledu/ledu/main.py"
           
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: release
           files: |
-              /home/runner/work/ledu/ledu/ledu/dist/main
+              /home/runner/work/ledu/ledu/dist/main
           
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
           name: "Windows-build"
-          path: "/home/runner/work/ledu/ledu/ledu/dist"
+          path: "/home/runner/work/ledu/ledu/dist"
