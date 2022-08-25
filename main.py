@@ -2,6 +2,8 @@ from gui.login1 import login1
 from gui.login2 import login2
 from gui.download1 import download1
 from gui.download2 import download2
+from gui.login1_sms import login1_sms
+from gui.login2_sms import login2_sms
 import sys, os
 import platform
     
@@ -14,7 +16,14 @@ def set_alldata(data):
 
 def login():
     credentials = login1()
-    loginresult = login2(credentials['usrname'], credentials['pwd'])
+    if credentials['success'] == 'True':
+        loginresult = login2(credentials['usrname'], credentials['pwd'])
+    else:
+        smscredential = login1_sms(credentials['phonenum'])
+        if smscredential['success'] == 'True':
+            loginresult = login2_sms(credentials['phonenum'], smscredential['code'], smscredential['zonecode'])
+        if smscredential['success'] == 'False':
+            login()
     if loginresult['success'] == 'False':
         login()
     if loginresult['success'] == 'True':
