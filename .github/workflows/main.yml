@@ -118,14 +118,14 @@ jobs:
       - name: Build and rename the artifact
         run: |
           pyinstaller --noconfirm --onefile --windowed --icon "/Users/runner/work/ledu/ledu/ledu.ico" --add-data "/Users/runner/work/ledu/ledu/bin/aria2c_macos:bin/"  "/Users/runner/work/ledu/ledu/main.py"
-          mv /Users/runner/work/ledu/ledu/dist/main /Users/runner/work/ledu/ledu/dist/ledu_download_macos
+          zip /Users/runner/work/ledu/ledu/ledu_download_macos.zip /Users/runner/work/ledu/ledu/dist
           
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: release
           files: |
-              /Users/runner/work/ledu/ledu/dist/ledu_download_macos
+              /Users/runner/work/ledu/ledu/ledu_download_macos.zip
           
       - name: Upload
         uses: actions/upload-artifact@v2
