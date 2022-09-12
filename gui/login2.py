@@ -19,7 +19,6 @@ def pwdverify(user, password):
     'source_type': 2,
     'domain' : 'xueersi.com',
     }
-
     data1 = requests.post(url,data=data, headers = headers) # submit the data to get login token
     json = data1.json()
     if json['errcode'] == 0: # no error, then try login

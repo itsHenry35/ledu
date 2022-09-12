@@ -87,7 +87,7 @@ def download2(list, uid, token, path__):
                         tkinterlist[filename]['progress'].update()
                         tkinterlist[filename]['percentage'].configure(text=str("%.2f"%((int(stat['completedLength']) / int(stat['totalLength']) * 100))) + '%')
                         tkinterlist[filename]['speed'].configure(text='下载速度：' + str(round(int(stat['downloadSpeed'])/1024/1024, 2)) + 'MB/s')
-            time.sleep(0.1)
+            time.sleep(0.001)
     root = ttk.Window(title = '乐读视频下载器-下载', themename="morph")
     root.geometry('1280x720')
     aria2process = subprocess.Popen(path__ + ' --enable-rpc --rpc-listen-port=6800 --max-connection-per-server=16 --file-allocation=none -j 64',shell=True)

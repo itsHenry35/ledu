@@ -4,6 +4,7 @@ from gui.download1 import download1
 from gui.download2 import download2
 from gui.login1_sms import login1_sms
 from gui.login2_sms import login2_sms
+from gui.login3 import login3
 import sys, os
 import platform
     
@@ -28,6 +29,9 @@ def login():
         login()
     if loginresult['success'] == 'True':
         set_alldata(loginresult['data'])
+        datanext = login3(token, uid)
+        if datanext['success'] == 'True':
+            set_alldata(datanext['data'])
 
 def download():
     result = download1(uid, token)
