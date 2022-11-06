@@ -128,4 +128,5 @@ def download2(list, uid, token, path__):
     thread.setDaemon(True)
     thread.start()
     root.mainloop()
+    aria2process.kill()
     return
