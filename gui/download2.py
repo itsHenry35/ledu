@@ -1,7 +1,8 @@
 # import the things we need
 from tkinter.ttk import Progressbar
+from ttkbootstrap.constants import *
 import requests
-import os
+import os, sys
 import subprocess
 from pyaria2 import Aria2RPC
 import ttkbootstrap as ttk
@@ -16,7 +17,6 @@ def getlecturers(list, uid, token):
     global tutorid
     global lecturerid
     global name
-    liveid = {}
     courseid = list['courseid']
     tutorid = list['tutorid']
     name = list['name'] #get the name of the course
@@ -37,11 +37,7 @@ def getlecturers(list, uid, token):
     classid = json[0]['stdClassId']
     subjectid = json[0]['stdSubject'] #get the classid and subjectid
     lecturerid = json[0]['lecturerId'] #get the lecturer id all from the first lecturer
-    count = 1
-    for i in json:
-        liveid [count] = i['liveId']
-        count += 1
-    return liveid
+    return json
 
 def getdownloadurl(id, uid, token):
     url = 'https://classroom-api-online.saasp.vdyoo.com/playback/v1/video/init'
@@ -68,6 +64,34 @@ def getdownloadurl(id, uid, token):
     videourl = json['videoUrls'][2] # get the download url of mp4 from the info
     return videourl
 
+def getcramclass(course, uid, token):
+    url = "https://classroom-api-online.saasp.vdyoo.com/classroom/basic/v1/real-record/init/auth"
+    if "tasks" not in course:
+        ttk.dialogs.dialogs.Messagebox.ok("当前课程没有延申课程！", title='提示', alert=True, parent=None, )
+        sys.exit()
+    adddata = '?curriculumId=' + course['tasks'][0]['curriculumId'] + '&taskId=' + course['tasks'][0]['taskId'] + '&taskTypeString=ONLINE_REAL_RECORD&coursewareId=' + course['tasks'][0]['coursewareId']
+    url = url + adddata
+    headers = {
+    "stuId": uid,
+    "token": token,
+    "terminal" : "pc",
+    "version" : "3.25.0.170",
+    }
+    data = requests.get(url, headers = headers) # get cram class info
+    liveid = data.json()['initData']['task']['realRecordId']
+    url = 'https://classroom-api-online.saasp.vdyoo.com/classroom-ai/record/v1/resources'
+    headers = {
+    "lecturerId": lecturerid,
+    "liveId": str(liveid),
+    "liveType": "ONLINE_REAL_RECORD",
+    "stuId": uid,
+    "token": token,
+    }
+    data = requests.get(url, headers = headers)
+    json = data.json()['definitions']
+    values = list(json.values())
+    videourl = values[len(values)-1][0]
+    return videourl
     
 
 def download2(list, uid, token, path__):
@@ -90,14 +114,21 @@ def download2(list, uid, token, path__):
             time.sleep(0.001)
     root = ttk.Window(title = '乐读视频下载器-下载', themename="morph")
     root.geometry('1280x720')
-    aria2process = subprocess.Popen(path__ + ' --enable-rpc --rpc-listen-port=6800 --max-connection-per-server=16 --file-allocation=none -j 64',shell=True)
+    aria2process = subprocess.Popen(path__ + ' --enable-rpc --rpc-listen-port=6800 --max-connection-per-server=16 --file-allocation=none --max-concurrent-downloads=64',shell=True)
     jsonrpc = Aria2RPC()
-    id = getlecturers(list, uid, token)
+    lecturers = getlecturers(list, uid, token)
     downloadurls = {}
-    for i in id:
-        url = getdownloadurl(str(id[i]), uid, token)
-        filename = '第'+ str(i) + '讲.mp4'
+    extensiveornot = list['extensiveornot']
+    count = 1
+    for i in lecturers:
+        if extensiveornot == 'False':
+            url = getdownloadurl(str(i['liveId']), uid, token)
+            filename = '第'+ str(count) + '讲.mp4'
+        if extensiveornot == 'True':
+            url = getcramclass(i, uid, token)
+            filename = '第'+ str(count) + '讲_延伸内容.mp4'
         downloadurls[filename] = url
+        count += 1
     count = 2
     tkinterlist = {}
     text = ttk.Label(text = '下载中~')
