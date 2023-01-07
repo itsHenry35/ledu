@@ -50,7 +50,7 @@ jobs:
               D:\a\ledu\ledu\dist\ledu_download_win64.exe
           
       - name: Upload
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: "Windows-build"
           path: "D:\\a\\ledu\\ledu\\dist"
@@ -89,7 +89,7 @@ jobs:
               /home/runner/work/ledu/ledu/dist/ledu_download_linux_amd64
           
       - name: Upload
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: "Linux-build"
           path: "/home/runner/work/ledu/ledu/dist"
@@ -128,7 +128,7 @@ jobs:
               /Users/runner/work/ledu/ledu/ledu_download_macos.zip
           
       - name: Upload
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: "MacOs-build"
           path: "/Users/runner/work/ledu/ledu/dist"
