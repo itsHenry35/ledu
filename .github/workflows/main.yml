@@ -47,7 +47,7 @@ jobs:
         with:
           tag_name: release
           files: |
-              D:\a\ledu\ledu\dist\ledu_download_win64.exe
+              D:\\a\\ledu\\ledu\\dist\\ledu_download_win64.exe
           
       - name: Upload
         uses: actions/upload-artifact@v3
