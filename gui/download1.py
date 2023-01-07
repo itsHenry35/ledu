@@ -34,6 +34,10 @@ def download1(uid, token):
                 returnlist['name'] = name
                 root.destroy()
                 break
+        if var.get() == 1:
+            returnlist['extensiveornot'] = 'True'
+        else:
+            returnlist['extensiveornot'] = 'False'
     root = ttk.Window(title = '乐读视频下载器-下载', themename="morph")
     root.geometry('1280x720')
     data = getcourse(uid, token)
@@ -43,6 +47,8 @@ def download1(uid, token):
     numlist = {} #another list to storage numbers
     returnlist = {}
     widgetlist = {}
+    var = ttk.IntVar()
+    var.set(0)
     for i in data:
         courselist[i['courseName']]= i['tutorId'] #append to a dictionary
         idlist[i['courseName']]= i['stdCourseId'] #append to another dictionary
@@ -52,6 +58,8 @@ def download1(uid, token):
         checkbutton.grid(row = count-1, column = 0)
         widgetlist[str(count)] = checkbutton
         count +=1
+    extensiveornot = ttk.Checkbutton(text='延伸课程', bootstyle="default-round-toggle", variable=var)
+    extensiveornot.grid(row = count, column = 1)
     submit = ttk.Button(text='提交', bootstyle="primary", command=downnextpage)
     submit.grid (row = count, column = 0)
     root.mainloop()
