@@ -111,6 +111,11 @@ def download2(list, uid, token, path__):
                         tkinterlist[filename]['progress'].update()
                         tkinterlist[filename]['percentage'].configure(text=str("%.2f"%((int(stat['completedLength']) / int(stat['totalLength']) * 100))) + '%')
                         tkinterlist[filename]['speed'].configure(text='下载速度：' + str(round(int(stat['downloadSpeed'])/1024/1024, 2)) + 'MB/s')
+                if stat['status'] == 'complete':
+                    tkinterlist[filename]['progress']['value'] = 100
+                    tkinterlist[filename]['progress'].update()
+                    tkinterlist[filename]['percentage'].configure(text='100%')
+                    tkinterlist[filename]['speed'].configure(text='已完成')
             time.sleep(0.1)
     root = ttk.Window(title = '乐读视频下载器-下载', themename="morph")
     root.geometry('1280x720')
@@ -152,7 +157,9 @@ def download2(list, uid, token, path__):
         count += 1
     path = os.path.join('乐读-下载', name) #create a folder to store the downloaded files
     if not os.path.exists(path):
-        os.makedirs(path) 
+        os.makedirs(path)
+    openpathbutton = ttk.Button(text = '打开下载目录', command = lambda: os.startfile(path))
+    openpathbutton.grid(row=count+1, column=0)
     for i in downloadurls:
          aria2_download(downloadurls[i], path, i)  
     thread = threading.Thread(target=get_stat)
