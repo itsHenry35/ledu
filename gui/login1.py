@@ -15,15 +15,15 @@ def login1():
         global username_
         global sms
         sms = 'True'
-        username_ = username.get()
+        username_ = username.get().replace('\r','').replace('\n','').replace('\t','')
         root.destroy()
     def nextpage():
         global username_
         global password_
         global sms
         sms = 'False'
-        username_ = username.get()
-        password_ = password.get()
+        username_ = username.get().replace('\r','').replace('\n','').replace('\t','')
+        password_ = password.get().replace('\r','').replace('\n','').replace('\t','')
         root.destroy()
     root = ttk.Window(title = '乐读视频下载器-登陆', themename="morph")
     root.geometry('1280x720')

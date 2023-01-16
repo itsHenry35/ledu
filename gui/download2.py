@@ -39,8 +39,8 @@ def getlecturers(list, uid, token):
     lecturerid = json[0]['lecturerId'] #get the lecturer id all from the first lecturer
     return json
 
-def getdownloadurl(id, uid, token):
-    url = 'https://classroom-api-online.saasp.vdyoo.com/playback/v1/video/init'
+def getdownloadurl(i, uid, token):
+    type = i['liveTypeString']
     headers = {
         "Host": "classroom-api-online.saasp.vdyoo.com",
         "stuId": uid,
@@ -50,7 +50,8 @@ def getdownloadurl(id, uid, token):
         "tutorId": tutorid,
         "stdCourseId": courseid,
         "resVer": "1.0.6",
-        "liveId": id,
+        "liveId": str(i['liveId']),
+        "liveType": type,
         "terminal": "pc",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
         "stdClassId": classid,
@@ -59,10 +60,37 @@ def getdownloadurl(id, uid, token):
         "version": "3.21.0.84",
         "Referer": "https://speiyou.cn/",
     }
-    data = requests.get(url, headers = headers) # get one lecturer info
-    json = data.json()
-    videourl = json['videoUrls'][2] # get the download url of mp4 from the info
-    return videourl
+    if type == 'SMALL_GROUPS_V2_MODE':
+        url = 'https://classroom-api-online.saasp.vdyoo.com/playback/v1/video/init'
+        data = requests.get(url, headers = headers) # get one lecturer info
+        json = data.json()
+        videourl = ""
+        errmsg = ""
+        try:
+            videourl = json['videoUrls'][2] # get the download url of mp4 from the info
+            success = 'True'
+        except:
+            errmsg = json['message']
+            success = 'False'
+    if type == 'RECORD_MODE':
+        url = 'https://classroom-api-online.saasp.vdyoo.com/classroom-ai/record/v1/resources'
+        data = requests.get(url, headers = headers) # get one recorded class info
+        json = data.json()
+        videourl = ""
+        errmsg = ""
+        try:
+            definations = data.json()['definitions']
+            values = list(definations.values())
+            videourl = values[len(values)-1][0]
+            success = 'True'
+        except:
+            errmsg = json['message']
+            success = 'False'
+    return {
+        "url" : videourl,
+        "success" : success,
+        "errmsg" : errmsg,
+    }
 
 def getcramclass(course, uid, token):
     url = "https://classroom-api-online.saasp.vdyoo.com/classroom/basic/v1/real-record/init/auth"
@@ -88,10 +116,21 @@ def getcramclass(course, uid, token):
     "token": token,
     }
     data = requests.get(url, headers = headers)
-    json = data.json()['definitions']
-    values = list(json.values())
-    videourl = values[len(values)-1][0]
-    return videourl
+    json = data.json()
+    videourl = ""
+    errmsg = ""
+    try:
+        definations = data.json()['definitions']
+        values = list(definations.values())
+        videourl = values[len(values)-1][0]
+        success = 'True'
+    except:
+        errmsg = json['message']
+    return {
+        "url" : videourl,
+        "success" : success,
+        "errmsg" : errmsg,
+    }
     
 
 def download2(list, uid, token, path__):
@@ -127,12 +166,12 @@ def download2(list, uid, token, path__):
     count = 1
     for i in lecturers:
         if extensiveornot == 'False':
-            url = getdownloadurl(str(i['liveId']), uid, token)
+            result = getdownloadurl(i, uid, token)
             filename = '第'+ str(count) + '讲.mp4'
         if extensiveornot == 'True':
-            url = getcramclass(i, uid, token)
+            result = getcramclass(i, uid, token)
             filename = '第'+ str(count) + '讲_延伸内容.mp4'
-        downloadurls[filename] = url
+        downloadurls[filename] = result
         count += 1
     count = 2
     tkinterlist = {}
@@ -161,7 +200,11 @@ def download2(list, uid, token, path__):
     openpathbutton = ttk.Button(text = '打开下载目录', command = lambda: os.startfile(path))
     openpathbutton.grid(row=count+1, column=0)
     for i in downloadurls:
-         aria2_download(downloadurls[i], path, i)  
+         if downloadurls[i]['success'] == 'True':
+                aria2_download(downloadurls[i]['url'], path, i)
+         else:
+                tkinterlist[i]['percentage'].configure(text='下载失败')
+                tkinterlist[i]['speed'].configure(text=downloadurls[i]['errmsg'])
     thread = threading.Thread(target=get_stat)
     thread.setDaemon(True)
     thread.start()
