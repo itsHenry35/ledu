@@ -119,7 +119,7 @@ jobs:
         run: |
           pyinstaller --noconfirm --onefile --windowed --icon "/Users/runner/work/ledu/ledu/ledu.ico" --add-data "/Users/runner/work/ledu/ledu/bin/aria2c_macos:bin/"  "/Users/runner/work/ledu/ledu/main.py"
           rm /Users/runner/work/ledu/ledu/dist/main
-          mv /Users/runner/work/ledu/ledu/dist/main.app/ /Users/runner/work/ledu/ledu/ledu_download_macos.app/
+          mv /Users/runner/work/ledu/ledu/dist/main.app/ /Users/runner/work/ledu/ledu/dist/ledu_download_macos.app/
           mv /Users/runner/work/ledu/ledu/dist/ /Users/runner/work/ledu/ledu/ledu_download_macos/
           cd /Users/runner/work/ledu/ledu/ledu_download_macos/ && zip -r -X /Users/runner/work/ledu/ledu/ledu_download_macos.zip .
           
