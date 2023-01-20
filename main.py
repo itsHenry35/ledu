@@ -48,11 +48,11 @@ def get_platform_info():
         aria2c_path = bundle_dir + '\\bin\\aria2c_win.exe'
     elif platform_ == 'Linux':
         if platform.machine == 'x86_64':
-            aria2c_path = './bin/aria2c_linux_amd64'
+            aria2c_path = bundle_dir + '/bin/aria2c_linux_amd64'
         if platform.machine == 'armv8' or platform.machine == 'armv8l':
-            aria2c_path = './bin/aria2c_linux_arm64'
+            aria2c_path = bundle_dir + '/bin/aria2c_linux_arm64'
     elif platform_ == 'Darwin':
-        aria2c_path = './bin/aria2c_macos'
+        aria2c_path = bundle_dir + '/bin/aria2c_macos'
     else:
         print('暂不支持的系统！请使用Windows、Linux、MacOSX或Android系统(测试中)！') #if the system is not supported, print out(ios and unknown kernels are not supported yet)
         print('你的系统是：' + platform_)
