@@ -118,7 +118,8 @@ jobs:
       - name: Build and compress the artifact
         run: |
           pyinstaller --noconfirm --onefile --windowed --icon "/Users/runner/work/ledu/ledu/ledu.ico" --add-data "/Users/runner/work/ledu/ledu/bin/aria2c_macos:bin/"  "/Users/runner/work/ledu/ledu/main.py"
-          zip -r /Users/runner/work/ledu/ledu/ledu_download_macos.zip /Users/runner/work/ledu/ledu/dist/
+          # zip -r /Users/runner/work/ledu/ledu/ledu_download_macos.zip /Users/runner/work/ledu/ledu/dist/
+          cd /Users/runner/work/ledu/ledu/dist/main.app/ && zip -r -X /Users/runner/work/ledu/ledu/ledu_download_macos.zip .
           
       - name: Release
         uses: softprops/action-gh-release@v1
