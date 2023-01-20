@@ -134,4 +134,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: "MacOs-build"
-          path: "/Users/runner/work/ledu/ledu/dist"
+          path: "/Users/runner/work/ledu/ledu/ledu_download_macos/"
