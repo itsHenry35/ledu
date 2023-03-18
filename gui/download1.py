@@ -24,16 +24,13 @@ def getcourse(uid, token):
 
 def download1(uid, token):
     def downnextpage():
-        for i in widgetlist:
-            if 'selected' in widgetlist[i].state():
-                downtutorid = courselist[numlist[i]]
-                downcourseid = idlist[numlist[i]]
-                name = numlist[i]
-                returnlist['tutorid'] = downtutorid
-                returnlist['courseid'] = downcourseid
-                returnlist['name'] = name
-                root.destroy()
-                break
+        downtutorid = courselist[numlist[check_box_var1.get()]]
+        downcourseid = idlist[numlist[check_box_var1.get()]]
+        name = numlist[check_box_var1.get()]
+        returnlist['tutorid'] = downtutorid
+        returnlist['courseid'] = downcourseid
+        returnlist['name'] = name
+        root.destroy()
         if var.get() == 1:
             returnlist['extensiveornot'] = 'True'
         else:
@@ -41,27 +38,26 @@ def download1(uid, token):
     root = ttk.Window(title = '乐读视频下载器-下载', themename="morph")
     root.geometry('1280x720')
     data = getcourse(uid, token)
-    count = 1
+    count = 0
     courselist = {}
     idlist = {}
-    numlist = {} #another list to storage numbers
+    numlist = [] #another list to storage numbers
     returnlist = {}
-    widgetlist = {}
     var = ttk.IntVar()
     var.set(0)
     for i in data:
         courselist[i['courseName']]= i['tutorId'] #append to a dictionary
         idlist[i['courseName']]= i['stdCourseId'] #append to another dictionary
+    check_box_var1 = ttk.IntVar()
     for i in courselist:
-        numlist[str(count)]= i
-        checkbutton  = ttk.Checkbutton(text=i, bootstyle="default-round-toggle")
-        checkbutton.grid(row = count-1, column = 0)
-        widgetlist[str(count)] = checkbutton
+        numlist.append(i)
+        radiobutton  = ttk.Radiobutton(text=i, bootstyle="primary-outline-toolbutton", variable = check_box_var1, value=count)
+        radiobutton.pack(anchor = 'w')
         count +=1
     extensiveornot = ttk.Checkbutton(text='延伸课程', bootstyle="default-round-toggle", variable=var)
-    extensiveornot.grid(row = count, column = 1)
+    extensiveornot.pack(anchor = 'w')
     submit = ttk.Button(text='提交', bootstyle="primary", command=downnextpage)
-    submit.grid (row = count, column = 0)
+    submit.pack(anchor = 'w')
     root.mainloop()
     importlib.reload(ttk.style)
     return returnlist
