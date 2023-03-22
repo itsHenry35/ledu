@@ -1,6 +1,7 @@
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import importlib
+import tkinter.messagebox as mb
 
 def login1():
     global sms
@@ -24,7 +25,10 @@ def login1():
         sms = 'False'
         username_ = username.get().replace('\r','').replace('\n','').replace('\t','')
         password_ = password.get().replace('\r','').replace('\n','').replace('\t','')
-        root.destroy()
+        if not username_ or not password_:
+            mb.showwarning("警告", "请填写用户名与密码！")
+        else:
+            root.destroy()
     root = ttk.Window(title = '乐读视频下载器-登陆', themename="morph")
     root.geometry('1280x720')
     title = ttk.Label(text = '登陆', font = ('等线 (Body Asian)', 20))

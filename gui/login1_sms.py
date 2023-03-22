@@ -6,7 +6,7 @@ import time
 import threading
 
 import inspect
- 
+import tkinter.messagebox as mb
 import ctypes
  
 def _async_raise(tid, exctype):
@@ -59,6 +59,9 @@ def login1_sms(phonenum):
     def sendmsg():
         global thread
         global thread_
+        if not username.get().isdigit():
+            mb.showerror('错误', '请输入正确的手机号码')
+            return
         url= "https://passport.100tal.com/v1/web/login/sms/send" #sms send api
         headers = {
             "client-id": "523601",
@@ -76,7 +79,7 @@ def login1_sms(phonenum):
         }
         data1 = requests.post(url,data=data, headers = headers) # submit the data to get send sms
         json = data1.json()
-        ttk.dialogs.dialogs.Messagebox.ok(json['errmsg'], title='提示', alert=True, parent=None, )
+        mb.showinfo('提示', json['errmsg'])
         thread_ = 1
         if json['errcode'] == 0:
             thread = threading.Thread(target=after_sending)
@@ -109,7 +112,6 @@ def login1_sms(phonenum):
     if thread_ == 1:
         stop_thread(thread)
     importlib.reload(ttk.style)
-    print(ispwd)
     if ispwd == 'False':
         return {'success' : 'True',
             'phonenum':phonenum_, 
