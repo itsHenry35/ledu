@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.2](https://github.com/itsHenry35/ledu/compare/v1.0.1...v1.0.2) (2023-03-22)
+
+
+### CI
+
+* auto merge release ([38d5899](https://github.com/itsHenry35/ledu/commit/38d58995fd79b6baa69c1b07e8dac3930e7754a4))
+* fix release error ([37b3e31](https://github.com/itsHenry35/ledu/commit/37b3e3114e6fb67ac14b1227e0560cc0f058ac82))
+* run release again when changelog changed ([1380271](https://github.com/itsHenry35/ledu/commit/13802714d03cf22b0832933e0ce8482ad7cc03fb))
+
 ## [1.0.1](https://github.com/itsHenry35/ledu/compare/v1.0.0...v1.0.1) (2023-03-22)
 
 
