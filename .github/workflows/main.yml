@@ -37,11 +37,12 @@ jobs:
           ren D:\a\ledu\ledu\dist\main.exe D:\a\ledu\ledu\dist\ledu_download_win64.exe
           
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: svenstaro/upload-release-action@v2
         with:
-          tag_name: ${{ github.ref }}
-          files: |
-              D:\\a\\ledu\\ledu\\dist\\ledu_download_win64.exe
+          tag: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          overwrite: true
+          file: D:\\a\\ledu\\ledu\\dist\\ledu_download_win64.exe
           
       - name: Upload
         uses: actions/upload-artifact@v3
@@ -76,11 +77,12 @@ jobs:
           mv /home/runner/work/ledu/ledu/dist/main /home/runner/work/ledu/ledu/dist/ledu_download_linux_amd64
           
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: svenstaro/upload-release-action@v2
         with:
-          tag_name: ${{ github.ref }}
-          files: |
-              /home/runner/work/ledu/ledu/dist/ledu_download_linux_amd64
+          tag: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          overwrite: true
+          file: /home/runner/work/ledu/ledu/dist/ledu_download_linux_amd64
           
       - name: Upload
         uses: actions/upload-artifact@v3
@@ -118,11 +120,12 @@ jobs:
           cd /Users/runner/work/ledu/ledu/ledu_download_macos/ && zip -r -X /Users/runner/work/ledu/ledu/ledu_download_macos.zip .
           
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: svenstaro/upload-release-action@v2
         with:
-          tag_name: ${{ github.ref }}
-          files: |
-              /Users/runner/work/ledu/ledu/ledu_download_macos.zip
+          tag: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          overwrite: true
+          file: /Users/runner/work/ledu/ledu/ledu_download_macos.zip
           
       - name: Upload
         uses: actions/upload-artifact@v3
