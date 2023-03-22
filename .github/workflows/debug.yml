@@ -1,0 +1,117 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Debug
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  Build_Windows:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.6
+         
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+          
+      
+      - name: Build and rename the artifact
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --icon "D:/a/ledu/ledu/ledu.ico" --add-data "D:/a/ledu/ledu/bin/aria2c_win.exe;bin/"  "D:/a/ledu/ledu/main.py"
+          ren D:\a\ledu\ledu\dist\main.exe D:\a\ledu\ledu\dist\ledu_download_win64.exe
+          
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: "Windows-build"
+          path: "D:\\a\\ledu\\ledu\\dist"
+          
+  Build_Linux:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.6
+         
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+          
+      
+      - name: Build and rename the artifact
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_linux_amd64:bin/"  "/home/runner/work/ledu/ledu/main.py"
+          mv /home/runner/work/ledu/ledu/dist/main /home/runner/work/ledu/ledu/dist/ledu_download_linux_amd64
+          
+          
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: "Linux-build"
+          path: "/home/runner/work/ledu/ledu/dist"
+
+  Build_Macos:
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.6
+         
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+          
+      
+      - name: Build and compress the artifact
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --icon "/Users/runner/work/ledu/ledu/ledu.ico" --add-data "/Users/runner/work/ledu/ledu/bin/aria2c_macos:bin/"  "/Users/runner/work/ledu/ledu/main.py"
+          rm /Users/runner/work/ledu/ledu/dist/main
+          mv /Users/runner/work/ledu/ledu/dist/main.app/ /Users/runner/work/ledu/ledu/dist/ledu_download_macos.app/
+          mv /Users/runner/work/ledu/ledu/dist/ /Users/runner/work/ledu/ledu/ledu_download_macos/
+          cd /Users/runner/work/ledu/ledu/ledu_download_macos/ && zip -r -X /Users/runner/work/ledu/ledu/ledu_download_macos.zip .
+          
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: "MacOs-build"
+          path: "/Users/runner/work/ledu/ledu/ledu_download_macos/"
