@@ -7,31 +7,35 @@ from gui.login2_sms import login2_sms
 from gui.login3 import login3
 import sys, os
 import platform
-    
+import tkinter.messagebox as mb
+import requests
+
 def set_alldata(data):
     global token
     global uid
     token = data['hb_token']
     uid = str(data['pu_uid'])
-    
 
-def login():
-    credentials = login1()
+def perform_login(credentials):
     if credentials['success'] == 'True':
-        loginresult = login2(credentials['usrname'], credentials['pwd'])
+        return login2(credentials['usrname'], credentials['pwd'])
     else:
         smscredential = login1_sms(credentials['phonenum'])
         if smscredential['success'] == 'True':
-            loginresult = login2_sms(credentials['phonenum'], smscredential['code'], smscredential['zonecode'])
+            return login2_sms(credentials['phonenum'], smscredential['code'], smscredential['zonecode'])
         if smscredential['success'] == 'False':
-            login()
-    if loginresult['success'] == 'False':
-        login()
-    if loginresult['success'] == 'True':
-        set_alldata(loginresult['data'])
-        datanext = login3(token, uid)
-        if datanext['success'] == 'True':
-            set_alldata(datanext['data'])
+            return login()
+
+def login():
+    credentials = login1()
+    loginresult = perform_login(credentials)
+    while loginresult['success'] == 'False':
+        loginresult = login()
+
+    set_alldata(loginresult['data'])
+    datanext = login3(token, uid)
+    if datanext['success'] == 'True':
+        set_alldata(datanext['data'])
 
 def download():
     result = download1(uid, token)
@@ -39,11 +43,10 @@ def download():
     download2(result, uid, token, path__)
 
 def get_platform_info():
-    if getattr(sys, 'frozen', False): # we are running in a bundle
-        bundle_dir = sys._MEIPASS # This is where the files are unpacked to
-    else: # normal Python environment
-        bundle_dir = os.path.dirname(os.path.abspath(__file__))
+    bundle_dir = sys._MEIPASS if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__))
     platform_ = platform.system()
+    aria2c_path = ""
+
     if platform_ == 'Windows':
         aria2c_path = bundle_dir + '\\bin\\aria2c_win.exe'
     elif platform_ == 'Linux':
@@ -54,11 +57,13 @@ def get_platform_info():
     elif platform_ == 'Darwin':
         aria2c_path = bundle_dir + '/bin/aria2c_macos'
     else:
-        print('暂不支持的系统！请使用Windows、Linux、MacOSX或Android系统(测试中)！') #if the system is not supported, print out(ios and unknown kernels are not supported yet)
-        print('你的系统是：' + platform_)
-        input("") #let users see the message
-        sys.exit()
+        raise Exception(f'暂不支持的系统！请使用Windows、Linux、MacOSX或Android系统(测试中)！你的系统是：{platform_}')
+
     return aria2c_path
 
-login()
-download()
+try:
+    login()
+    download()
+except Exception as e:
+    mb.showerror('错误：' + str(e))
+    sys.exit(1)

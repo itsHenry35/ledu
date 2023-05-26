@@ -59,3 +59,6 @@ def login1():
             'success' : 'False',
             'phonenum' : username_
         }
+
+if __name__ == '__main__':
+    print(login1())

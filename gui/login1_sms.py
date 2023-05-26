@@ -8,9 +8,8 @@ import threading
 import inspect
 import tkinter.messagebox as mb
 import ctypes
- 
+
 def _async_raise(tid, exctype):
-    """raises the exception, performs cleanup if needed"""
     tid = ctypes.c_long(tid)
     if not inspect.isclass(exctype):
         exctype = type(exctype)
@@ -18,15 +17,10 @@ def _async_raise(tid, exctype):
     if res == 0:
         raise ValueError("invalid thread id")
     elif res != 1:
-        # """if it returns a number greater than one, you're in trouble,
-        # and you should call it again with exc=NULL to revert the effect"""
         ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, None)
- 
-        raise SystemError("PyThreadState_SetAsyncExc failed")
- 
+
 def stop_thread(thread):
     _async_raise(thread.ident, SystemExit)
-
 
 zonelist = {
  '请选择区号' : '000',
@@ -36,54 +30,60 @@ zonelist = {
  '中国香港 +852': '852',
 }
 
+def after_sending(send):
+    for i in range(1,61):
+        send.configure(text='重新发送(' + str(60-i) + '秒)', state="disabled")
+        time.sleep(1)
+    send.configure(text='重新发送', state="enabled")
+
+def switch_to_pwd(root):
+    global ispwd
+    root.destroy()
+    ispwd = 'True'
+
+def next_page(username, password, root, zonevar):
+    phonenum_ = username.get()
+    smscode_ = password.get()
+    root.destroy()
+    return {'success' : 'True',
+            'phonenum':phonenum_, 
+            'code': smscode_,
+            'zonecode' : zonelist[zonevar.get()]
+            }
+
+def send_msg(username, zonevar, send, thread_):
+    if not username.get().isdigit():
+        mb.showerror('错误', '请输入正确的手机号码')
+        return
+    url= "https://passport.100tal.com/v1/web/login/sms/send"
+    headers = {
+        "client-id": "523601",
+        "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "device-id": "TAL",
+        "origin": "owcr://classroom",
+        "referer": "https://speiyou.cn/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+        "ver-num": "1.13.03"
+    }
+    data = {
+    'verify_type': 1,
+    'phone': username.get(),
+    'phone_code': zonelist[zonevar.get()]
+    }
+    data1 = requests.post(url,data=data, headers = headers)
+    json = data1.json()
+    mb.showinfo('提示', json['errmsg'])
+    thread_ = 1
+    if json['errcode'] == 0:
+        global thread
+        thread = threading.Thread(target=after_sending, args=(send,))
+        thread.start()
+    return thread_
+
 def login1_sms(phonenum):
     global root
-    def after_sending():
-        for i in range(1,61):
-            send.configure(text='重新发送(' + str(60-i) + '秒)', state="disabled")
-            time.sleep(1)
-        send.configure(text='重新发送', state="enabled")
+    ispwd = 'False'
     phonenum = str(phonenum)
-    def switchtopwd():
-        global ispwd
-        root.destroy()
-        ispwd = 'True'
-    def nextpage():
-        global phonenum_
-        global smscode_
-        global ispwd
-        phonenum_ = username.get()
-        smscode_ = password.get()
-        root.destroy()
-        ispwd = 'False'
-    def sendmsg():
-        global thread
-        global thread_
-        if not username.get().isdigit():
-            mb.showerror('错误', '请输入正确的手机号码')
-            return
-        url= "https://passport.100tal.com/v1/web/login/sms/send" #sms send api
-        headers = {
-            "client-id": "523601",
-            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "device-id": "TAL",
-            "origin": "owcr://classroom",
-            "referer": "https://speiyou.cn/",
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
-            "ver-num": "1.13.03"
-        }
-        data = {
-        'verify_type': 1,
-        'phone': username.get(),
-        'phone_code': zonelist[zonevar.get()]
-        }
-        data1 = requests.post(url,data=data, headers = headers) # submit the data to get send sms
-        json = data1.json()
-        mb.showinfo('提示', json['errmsg'])
-        thread_ = 1
-        if json['errcode'] == 0:
-            thread = threading.Thread(target=after_sending)
-            thread.start()
     thread_ = 0
     root = ttk.Window(title = '乐读视频下载器-登陆', themename="morph")
     root.geometry('1280x720')
@@ -102,21 +102,17 @@ def login1_sms(phonenum):
     text2.grid(row=2)
     password = ttk.Entry(bootstyle="primary")
     password.grid(row=2,column=2)
-    send = ttk.Button(text='发送验证码', bootstyle="default", command=sendmsg)
+    send = ttk.Button(text='发送验证码', bootstyle="default", command=lambda: send_msg(username, zonevar, send, thread_))
     send.grid(row=2,column=3)
-    smsswitch = ttk.Button(text='返回账号密码登陆', bootstyle="default-outline", command=switchtopwd)
+    smsswitch = ttk.Button(text='返回账号密码登陆', bootstyle="default-outline", command=lambda: switch_to_pwd(root))
     smsswitch.grid(row=2,column=4)
-    submit = ttk.Button(text='提交', bootstyle="primary", command=nextpage)
+    submit = ttk.Button(text='提交', bootstyle="primary", command=lambda: next_page(username, password, root, zonevar))
     submit.grid(row=3, column=3)
     root.mainloop()
     if thread_ == 1:
         stop_thread(thread)
     importlib.reload(ttk.style)
     if ispwd == 'False':
-        return {'success' : 'True',
-            'phonenum':phonenum_, 
-            'code': smscode_,
-            'zonecode' : zonelist[zonevar.get()]
-            }
+        return next_page(username, password, root)
     if ispwd == 'True':
         return {'success' : 'False',}
