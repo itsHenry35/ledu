@@ -3,9 +3,8 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import importlib
 
-def pwdverify(user, password):
-    url= "https://passport.100tal.com/v1/web/login/pwd" #password verify api
-
+def pwd_verify(user, password):
+    url = "https://passport.100tal.com/v1/web/login/pwd"
     headers = {
         'ver-num': '1.13.03',
         'content-type': 'application/x-www-form-urlencoded',
@@ -14,68 +13,70 @@ def pwdverify(user, password):
         'referer': 'https://speiyou.cn/',
     }
     data = {
-    'symbol': user,
-    'password': password,
-    'source_type': 2,
-    'domain' : 'xueersi.com',
+        'symbol': user,
+        'password': password,
+        'source_type': 2,
+        'domain': 'xueersi.com',
     }
-    data1 = requests.post(url,data=data, headers = headers) # submit the data to get login token
-    json = data1.json()
-    if json['errcode'] == 0: # no error, then try login
-        return {'success' : 'True',
-            'data' : json['data'],
-            'msg' : json['errmsg']
-            }
+    response = requests.post(url, data=data, headers=headers)
+    json_response = response.json()
+    if json_response['errcode'] == 0:
+        return {'success': 'True',
+                'data': json_response['data'],
+                'msg': json_response['errmsg']
+                }
     else:
-        return {'success' : 'False',
-            'msg' : json['errmsg']
-            }
+        return {'success': 'False',
+                'msg': json_response['errmsg']
+                }
 
 def login(data):
-    url = "https://course-api-online.saasp.vdyoo.com/passport/v1/login/student/code" # login api
+    url = "https://course-api-online.saasp.vdyoo.com/passport/v1/login/student/code"
     code = data['code']
     headers = {
-    "Referer": "https://speiyou.cn/",
+        "Referer": "https://speiyou.cn/",
     }
 
-    data = {"code":code,
-    "deviceId":"TAL",
-    "terminal":"pc",
-    "product":"ss",
-    "clientId":"523601"
-    }
+    data = {"code": code,
+            "deviceId": "TAL",
+            "terminal": "pc",
+            "product": "ss",
+            "clientId": "523601"
+            }
 
-    data1 = requests.post(url,json=data, headers = headers) # submit the data to get global token
-    json = data1.json() # convert to json so can be accessed
-    return json
+    response = requests.post(url, json=data, headers=headers)
+    json_response = response.json()
+    return json_response
 
 def login2(username, password):
-    def loginagain():
+    def login_again():
         root.destroy()
         global result_
-        result_ =  {
-            'success' : 'False'
-        }
-    def nextstep():
-        global result_
-        root.destroy()
-        data = login(loginresult['data'])
         result_ = {
-            'success' : 'True',
-            'data' : data,
+            'success': 'False'
         }
-    root = ttk.Window(title = '乐读视频下载器-登陆', themename="morph")
+
+    def next_step():
+        global result_
+        root.destroy()
+        data = login(login_result['data'])
+        result_ = {
+            'success': 'True',
+            'data': data,
+        }
+
+    root = ttk.Window(title='乐读视频下载器-登陆', themename="morph")
     root.geometry('1280x720')
-    loginresult = pwdverify(username, password)
-    if loginresult['success'] == 'True':
-        text1 = ttk.Label(text = loginresult['msg'])
+    login_result = pwd_verify(username, password)
+    if login_result['success'] == 'True':
+        text1 = ttk.Label(text=login_result['msg'])
         text1.grid(row=1)
-        submit = ttk.Button(text='下一步', bootstyle="primary", command=nextstep)
+        submit = ttk.Button(text='下一步', bootstyle="primary", command=next_step)
         submit.grid(row=2)
     else:
-        text1 = ttk.Label(text = loginresult['msg'])
+        text1 = ttk.Label(text=login_result['msg'])
         text1.grid(row=1)
-        submit = ttk.Button(text='重试', bootstyle="primary", command=loginagain)
+        submit = ttk.Button(text='重试', bootstyle="primary", command=login_again)
         submit.grid(row=2)
     root.mainloop()
     importlib.reload(ttk.style)

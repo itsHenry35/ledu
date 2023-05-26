@@ -3,9 +3,8 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import importlib
 
-def smsverify(phonenum, smscode, zonecode):
-    url= "https://passport.100tal.com/v1/web/login/sms" #password verify api
-
+def sms_verify(phone_num, sms_code, zone_code):
+    url = "https://passport.100tal.com/v1/web/login/sms"
     headers = {
         'ver-num': '1.13.03',
         'content-type': 'application/x-www-form-urlencoded',
@@ -14,70 +13,72 @@ def smsverify(phonenum, smscode, zonecode):
         'referer': 'https://speiyou.cn/',
     }
     data = {
-    'phone': phonenum,
-    'sms_code': smscode,
-    'phone_code': zonecode,
-    'source_type': 2,
-    'domain' : 'xueersi.com',
+        'phone': phone_num,
+        'sms_code': sms_code,
+        'phone_code': zone_code,
+        'source_type': 2,
+        'domain': 'xueersi.com',
     }
 
-    data1 = requests.post(url,data=data, headers = headers) # submit the data to get login token
-    json = data1.json()
-    if json['errcode'] == 0: # no error, then try login
-        return {'success' : 'True',
-            'data' : json['data'],
-            'msg' : json['errmsg']
-            }
+    response = requests.post(url, data=data, headers=headers)
+    json_response = response.json()
+    if json_response['errcode'] == 0:
+        return {'success': 'True',
+                'data': json_response['data'],
+                'msg': json_response['errmsg']
+                }
     else:
-        return {'success' : 'False',
-            'msg' : json['errmsg']
-            }
+        return {'success': 'False',
+                'msg': json_response['errmsg']
+                }
 
 def login(data):
-    url = "https://course-api-online.saasp.vdyoo.com/passport/v1/login/student/code" # login api
+    url = "https://course-api-online.saasp.vdyoo.com/passport/v1/login/student/code"
     code = data['code']
     headers = {
-    "Referer": "https://speiyou.cn/",
+        "Referer": "https://speiyou.cn/",
     }
 
-    data = {"code":code,
-    "deviceId":"TAL",
-    "terminal":"pc",
-    "product":"ss",
-    "clientId":"523601"
-    }
+    data = {"code": code,
+            "deviceId": "TAL",
+            "terminal": "pc",
+            "product": "ss",
+            "clientId": "523601"
+            }
 
-    data1 = requests.post(url,json=data, headers = headers) # submit the data to get global token
-    json = data1.json() # convert to json so can be accessed
-    return json
+    response = requests.post(url, json=data, headers=headers)
+    json_response = response.json()
+    return json_response
 
-def login2_sms(phonenum, smscode, zonecode):
-    def loginagain():
+def login2_sms(phone_num, sms_code, zone_code):
+    def login_again():
         root.destroy()
         global result_
-        result_ =  {
-            'success' : 'False'
-        }
-    def nextstep():
-        global result_
-        root.destroy()
-        data = login(loginresult['data'])
         result_ = {
-            'success' : 'True',
-            'data' : data,
+            'success': 'False'
         }
-    root = ttk.Window(title = '乐读视频下载器-登陆', themename="morph")
+
+    def next_step():
+        global result_
+        root.destroy()
+        data = login(login_result['data'])
+        result_ = {
+            'success': 'True',
+            'data': data,
+        }
+
+    root = ttk.Window(title='乐读视频下载器-登陆', themename="morph")
     root.geometry('1280x720')
-    loginresult = smsverify(phonenum, smscode, zonecode)
-    if loginresult['success'] == 'True':
-        text1 = ttk.Label(text = loginresult['msg'])
+    login_result = sms_verify(phone_num, sms_code, zone_code)
+    if login_result['success'] == 'True':
+        text1 = ttk.Label(text=login_result['msg'])
         text1.grid(row=1)
-        submit = ttk.Button(text='下一步', bootstyle="primary", command=nextstep)
+        submit = ttk.Button(text='下一步', bootstyle="primary", command=next_step)
         submit.grid(row=2)
     else:
-        text1 = ttk.Label(text = loginresult['msg'])
+        text1 = ttk.Label(text=login_result['msg'])
         text1.grid(row=1)
-        submit = ttk.Button(text='重试', bootstyle="primary", command=loginagain)
+        submit = ttk.Button(text='重试', bootstyle="primary", command=login_again)
         submit.grid(row=2)
     root.mainloop()
     importlib.reload(ttk.style)
