@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/itsHenry35/ledu/compare/v1.0.2...v1.0.3) (2023-05-14)
+
+
+### CI
+
+* use ubuntu 20.04 for better compatibility ([e6da0b8](https://github.com/itsHenry35/ledu/commit/e6da0b8428a171f426b3ac33ed126ba75897e408))
+
 ## [1.0.2](https://github.com/itsHenry35/ledu/compare/v1.0.1...v1.0.2) (2023-03-22)
 
 
