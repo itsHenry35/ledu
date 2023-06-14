@@ -2,3 +2,4 @@ requests
 tk
 ttkbootstrap
 pyaria2
+sentry-sdk
