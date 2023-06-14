@@ -5,10 +5,19 @@ from gui.download2 import download2
 from gui.login1_sms import login1_sms
 from gui.login2_sms import login2_sms
 from gui.login3 import login3
-import sys, os
+import sys, os, webbrowser
 import platform
 import tkinter.messagebox as mb
-import requests
+import sentry_sdk
+
+sentry_sdk.init(
+    dsn="https://c25be4debe4f4a00b773850b890a4fa4@o4505250566111232.ingest.sentry.io/4505357690077184",
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0
+)
 
 def set_alldata(data):
     global token
@@ -65,5 +74,8 @@ try:
     login()
     download()
 except Exception as e:
-    mb.showerror('错误：' + str(e))
-    sys.exit(1)
+    sentry_sdk.capture_exception(e)
+    mb.showerror('错误','错误：' + str(e))
+    mb.showinfo('错误反馈', '请在弹出的网页底部评论区中或在GitHub上将错误反馈给开发者！')
+    webbrowser.open("https://blog.itshenryz.com/2022/06/01/ledu-playback-download/")
+    sys.exit()
