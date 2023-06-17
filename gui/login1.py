@@ -2,6 +2,7 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import importlib
 import tkinter.messagebox as mb
+import sys
 
 def login1():
     global sms
@@ -18,6 +19,16 @@ def login1():
         sms = 'True'
         username_ = username.get().replace('\r','').replace('\n','').replace('\t','')
         root.destroy()
+        if sms == 'False':
+            return {'success' : 'True',
+                'usrname':username_, 
+                'pwd':password_,
+                }
+        if sms == 'True':
+            return {
+                'success' : 'False',
+                'phonenum' : username_
+            }
     def nextpage():
         global username_
         global password_
@@ -49,16 +60,10 @@ def login1():
     submit.grid(row=3, column=2)
     root.mainloop()
     importlib.reload(ttk.style)
-    if sms == 'False':
-        return {'success' : 'True',
-            'usrname':username_, 
-            'pwd':password_,
-            }
-    if sms == 'True':
-        return {
-            'success' : 'False',
-            'phonenum' : username_
-        }
+    try:
+        sms
+    except NameError:
+        sys.exit()
 
 if __name__ == '__main__':
     print(login1())
