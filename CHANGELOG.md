@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/itsHenry35/ledu/compare/v1.0.3...v1.1.0) (2023-06-14)
+
+
+### Features
+
+* add error handling and error reporting ([39c823d](https://github.com/itsHenry35/ledu/commit/39c823d0d113f531152100533db3949a32f2f10a))
+
+
+### Code Refactoring
+
+* rewrite all code ([9f9a792](https://github.com/itsHenry35/ledu/commit/9f9a792f04c2ef555a069e6eeeef03676569e384))
+
 ## [1.0.3](https://github.com/itsHenry35/ledu/compare/v1.0.2...v1.0.3) (2023-05-14)
 
 
