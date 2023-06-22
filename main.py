@@ -26,17 +26,17 @@ def set_alldata(data):
     uid = str(data['pu_uid'])
 
 def perform_login(credentials):
-    if credentials['success'] == 'True':
+    if credentials['pwdlogin'] == 'True':
         return login2(credentials['usrname'], credentials['pwd'])
     else:
         smscredential = login1_sms(credentials['phonenum'])
-        if smscredential['success'] == 'True':
-            return login2_sms(credentials['phonenum'], smscredential['code'], smscredential['zonecode'])
-        if smscredential['success'] == 'False':
-            return login()
+        if smscredential['pwdlogin'] == 'False':
+            return login2_sms(smscredential['phonenum'], smscredential['code'], smscredential['zonecode'])
+        if smscredential['pwdlogin'] == 'True':
+            return perform_login(login(username=str(smscredential['phonenum'])))
 
-def login():
-    credentials = login1()
+def login(username=""):
+    credentials = login1(username)
     loginresult = perform_login(credentials)
     while loginresult['success'] == 'False':
         loginresult = login()

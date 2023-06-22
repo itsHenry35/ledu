@@ -4,7 +4,7 @@ import importlib
 import requests
 import time
 import threading
-
+import sys
 import inspect
 import tkinter.messagebox as mb
 import ctypes
@@ -36,24 +36,32 @@ def after_sending(send):
         time.sleep(1)
     send.configure(text='重新发送', state="enabled")
 
-def switch_to_pwd(root):
-    global ispwd
+def switch_to_pwd(username,root):
+    global credentials, exitbool
+    exitbool = False
+    credentials = {
+        'pwdlogin' : 'True',
+        'phonenum':username.get(),
+    }
     root.destroy()
-    ispwd = 'True'
 
 def next_page(username, password, root, zonevar):
-    phonenum_ = username.get()
-    smscode_ = password.get()
+    global credentials, exitbool
+    exitbool = False
+    credentials = {
+        'pwdlogin' : 'False',
+        'phonenum':username.get(), 
+        'code': password.get(),
+        'zonecode' : zonelist[zonevar.get()]
+    }
+    if not password.get().isdigit():
+        mb.showwarning('警告', '请输入正确的验证码')
+        return
     root.destroy()
-    return {'success' : 'True',
-            'phonenum':phonenum_, 
-            'code': smscode_,
-            'zonecode' : zonelist[zonevar.get()]
-            }
 
 def send_msg(username, zonevar, send, thread_):
     if not username.get().isdigit():
-        mb.showerror('错误', '请输入正确的手机号码')
+        mb.showwarning('警告', '请输入正确的手机号码')
         return
     url= "https://passport.100tal.com/v1/web/login/sms/send"
     headers = {
@@ -81,8 +89,8 @@ def send_msg(username, zonevar, send, thread_):
     return thread_
 
 def login1_sms(phonenum):
-    global root
-    ispwd = 'False'
+    global root, exitbool
+    exitbool = True
     phonenum = str(phonenum)
     thread_ = 0
     root = ttk.Window(title = '乐读视频下载器-登陆', themename="morph")
@@ -104,7 +112,7 @@ def login1_sms(phonenum):
     password.grid(row=2,column=2)
     send = ttk.Button(text='发送验证码', bootstyle="default", command=lambda: send_msg(username, zonevar, send, thread_))
     send.grid(row=2,column=3)
-    smsswitch = ttk.Button(text='返回账号密码登陆', bootstyle="default-outline", command=lambda: switch_to_pwd(root))
+    smsswitch = ttk.Button(text='返回账号密码登陆', bootstyle="default-outline", command=lambda: switch_to_pwd(username, root))
     smsswitch.grid(row=2,column=4)
     submit = ttk.Button(text='提交', bootstyle="primary", command=lambda: next_page(username, password, root, zonevar))
     submit.grid(row=3, column=3)
@@ -112,7 +120,6 @@ def login1_sms(phonenum):
     if thread_ == 1:
         stop_thread(thread)
     importlib.reload(ttk.style)
-    if ispwd == 'False':
-        return next_page(username, password, root)
-    if ispwd == 'True':
-        return {'success' : 'False',}
+    if exitbool:
+        sys.exit()
+    return credentials
