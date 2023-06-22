@@ -68,7 +68,7 @@ def login2_sms(phone_num, sms_code, zone_code):
         }
 
     root = ttk.Window(title='乐读视频下载器-登陆', themename="morph")
-    root.geometry('1280x720')
+    root.geometry("")
     login_result = sms_verify(phone_num, sms_code, zone_code)
     if login_result['success'] == 'True':
         text1 = ttk.Label(text=login_result['msg'])

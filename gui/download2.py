@@ -150,7 +150,7 @@ def download2(course_list, user_id, access_token, aria2_path):
                     tkinterlist[filename]['speed'].configure(text='已完成')
             time.sleep(0.1)
     root = ttk.Window(title='乐读视频下载器-下载', themename="morph")
-    root.geometry('1280x720')
+    root.geometry("")
     aria2process = subprocess.Popen(aria2_path + ' --enable-rpc --rpc-listen-port=6800 --max-connection-per-server=16 --file-allocation=none --max-concurrent-downloads=64', shell=True)
     time.sleep(1)
     jsonrpc = Aria2RPC()
