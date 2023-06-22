@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/itsHenry35/ledu/compare/v1.2.0...v1.2.1) (2023-06-22)
+
+
+### CI
+
+* fix wrong release tag and name ([a3a06cc](https://github.com/itsHenry35/ledu/commit/a3a06cc337b5fe0d60e222b54b841a1607290acd))
+
 ## [1.2.0](https://github.com/itsHenry35/ledu/compare/v1.1.0...v1.2.0) (2023-06-22)
 
 
