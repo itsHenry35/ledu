@@ -33,10 +33,10 @@ def perform_login(credentials):
         if smscredential['pwdlogin'] == 'False':
             return login2_sms(smscredential['phonenum'], smscredential['code'], smscredential['zonecode'])
         if smscredential['pwdlogin'] == 'True':
-            return perform_login(login(username=str(smscredential['phonenum'])))
+            return perform_login(login1(str(smscredential['phonenum'])))
 
-def login(username=""):
-    credentials = login1(username)
+def login():
+    credentials = login1()
     loginresult = perform_login(credentials)
     while loginresult['success'] == 'False':
         loginresult = login()
