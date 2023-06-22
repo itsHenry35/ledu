@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.0](https://github.com/itsHenry35/ledu/compare/v1.1.0...v1.2.0) (2023-06-22)
+
+
+### Features
+
+* better layout ([f507c87](https://github.com/itsHenry35/ledu/commit/f507c87cc19361f61b1d57cdafa14411d6b2cd86))
+* support dynamic window resizing ([6a1b5f8](https://github.com/itsHenry35/ledu/commit/6a1b5f8a75ab6f811b40ee9c368478aead817609))
+
+
+### Bug Fixes
+
+* error downloading after switching back from sms ([fc1c108](https://github.com/itsHenry35/ledu/commit/fc1c10865ee2c9ac8ae19dec0c7c9571a3ee1c08))
+* sms not defined error while closing ([e6e9041](https://github.com/itsHenry35/ledu/commit/e6e9041422e957811fbea92bcb7e6e85fa2200ad))
+* Switching between sms and pwd may trigger loop ([7a42a70](https://github.com/itsHenry35/ledu/commit/7a42a7099db9bbd245a391ec9e51366840b7d9fa))
+
 ## [1.1.0](https://github.com/itsHenry35/ledu/compare/v1.0.3...v1.1.0) (2023-06-14)
 
 
