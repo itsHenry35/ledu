@@ -94,7 +94,7 @@ def login1_sms(phonenum):
     phonenum = str(phonenum)
     thread_ = 0
     root = ttk.Window(title = '乐读视频下载器-登陆', themename="morph")
-    root.geometry('1280x720')
+    root.geometry("")
     title = ttk.Label(text = '登陆', font = ('等线 (Body Asian)', 20))
     title.grid(row = 0, column = 0)
     text1 = ttk.Label(text = '手机号：')

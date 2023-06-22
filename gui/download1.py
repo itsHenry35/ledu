@@ -32,7 +32,7 @@ def download1(uid, token):
         returnlist['extensiveornot'] = 'True' if var.get() == 1 else 'False'
 
     root = ttk.Window(title='乐读视频下载器-下载', themename="morph")
-    root.geometry('1280x720')
+    root.geometry("")
     data = get_course(uid, token)
     courselist, idlist, numlist, returnlist = {}, {}, [], {}
     var = ttk.IntVar()

@@ -45,7 +45,7 @@ def login3(token, uid_now):
 
     count = 0
     root = ttk.Window(title='乐读视频下载器-登陆', themename="morph")
-    root.geometry('1280x720')
+    root.geometry("")
     text0 = ttk.Label(text='请选择学员')
     text0.grid(row=0)
     account_list = get_account_list(token, uid_now)
