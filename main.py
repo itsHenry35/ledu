@@ -57,7 +57,7 @@ def get_platform_info():
     aria2c_path = ""
 
     if platform_ == 'Windows':
-        aria2c_path = bundle_dir + '\\bin\\aria2c_win.exe'
+        aria2c_path = f"\"{bundle_dir}\\bin\\aria2c_win.exe\""
     elif platform_ == 'Linux':
         if platform.machine == 'x86_64':
             aria2c_path = bundle_dir + '/bin/aria2c_linux_amd64'
