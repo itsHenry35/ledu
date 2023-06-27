@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/itsHenry35/ledu/compare/v1.2.1...v1.2.2) (2023-06-27)
+
+
+### Bug Fixes
+
+* double quote to avoid usernames with a space on Windows ([21c992d](https://github.com/itsHenry35/ledu/commit/21c992db50fa820d25606da93865440250ca732e))
+
 ## [1.2.1](https://github.com/itsHenry35/ledu/compare/v1.2.0...v1.2.1) (2023-06-22)
 
 
