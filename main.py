@@ -47,9 +47,14 @@ def login():
         set_alldata(datanext['data'])
 
 def download():
-    result = download1(uid, token)
-    path__ = get_platform_info()
-    download2(result, uid, token, path__)
+    result, custom_down_path = download1(uid, token)
+    aria2_path = get_platform_info()
+    for count, course in enumerate(result):
+        if count == len(result) - 1:
+            final = True
+        else:
+            final = False
+        download2(course, uid, token, aria2_path, custom_down_path, final)
 
 def get_platform_info():
     bundle_dir = sys._MEIPASS if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__))

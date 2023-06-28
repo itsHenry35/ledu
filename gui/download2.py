@@ -4,9 +4,25 @@ import requests
 import os, sys
 import subprocess
 from pyaria2 import Aria2RPC
-import ttkbootstrap as ttk
+import ttkbootstrap as ttk, tkinter
 import time
 import threading
+import importlib
+import inspect, ctypes
+
+
+def _async_raise(tid, exctype):
+    tid = ctypes.c_long(tid)
+    if not inspect.isclass(exctype):
+        exctype = type(exctype)
+    res = ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, ctypes.py_object(exctype))
+    if res == 0:
+        raise ValueError("invalid thread id")
+    elif res != 1:
+        ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, None)
+        raise SystemError("PyThreadState_SetAsyncExc failed")
+def stop_thread(thread):
+    _async_raise(thread.ident, SystemExit)
 
 def get_lecturers(course_list, user_id, access_token):
     url = "https://course-api-online.saasp.vdyoo.com/course/v1/student/course/user-live-list"
@@ -126,14 +142,19 @@ def get_cram_class(course, user_id, access_token):
         "errmsg": error_message,
     }
 
-def download2(course_list, user_id, access_token, aria2_path):
+def download2(course_list, user_id, access_token, aria2_path, custom_down_path, final):
+    global aria2process
+    if custom_down_path == '':
+        custom_down_path = "乐读-下载"
     gid_group = {}
     def aria2_download(link, path, filename):
         options = {"dir": path, "out": filename}
         download_ = jsonrpc.addUri([link], options=options)
         gid_group[filename] = download_
     def update_download_status():
+        global aria2process
         while True:
+            all_success = True
             for filename in gid_group:
                 stat = jsonrpc.tellStatus(gid=str(gid_group[filename]))
                 if stat['status'] != 'complete':
@@ -143,15 +164,24 @@ def download2(course_list, user_id, access_token, aria2_path):
                         tkinterlist[filename]['progress'].update()
                         tkinterlist[filename]['percentage'].configure(text=str("%.2f"%((int(stat['completedLength']) / int(stat['totalLength']) * 100))) + '%')
                         tkinterlist[filename]['speed'].configure(text='下载速度：' + str(round(int(stat['downloadSpeed'])/1024/1024, 2)) + 'MB/s')
+                    all_success = False
                 if stat['status'] == 'complete':
                     tkinterlist[filename]['progress']['value'] = 100
                     tkinterlist[filename]['progress'].update()
                     tkinterlist[filename]['percentage'].configure(text='100%')
                     tkinterlist[filename]['speed'].configure(text='已完成')
+            if all_success:
+                if not final:
+                    root.destroy()
+                if final:
+                    jsonrpc.shutdown()
+                    aria2process.terminate()
+                stop_thread(thread)
             time.sleep(0.1)
     root = ttk.Window(title='乐读视频下载器-下载', themename="morph")
     root.geometry("")
-    aria2process = subprocess.Popen(aria2_path + ' --enable-rpc --rpc-listen-port=6800 --max-connection-per-server=16 --file-allocation=none --max-concurrent-downloads=64', shell=True)
+    if not final:
+        aria2process = subprocess.Popen(aria2_path + ' --enable-rpc --rpc-listen-port=6800 --max-connection-per-server=16 --file-allocation=none --max-concurrent-downloads=64', shell=True)
     time.sleep(1)
     jsonrpc = Aria2RPC()
     lecturers = get_lecturers(course_list, user_id, access_token)
@@ -169,7 +199,7 @@ def download2(course_list, user_id, access_token, aria2_path):
         count += 1
     count = 2
     tkinterlist = {}
-    text = ttk.Label(text='下载中~')
+    text = ttk.Label(text='当前正在下载课程：' + course_name)
     text.grid(row=1, column=0)
     for filename in download_urls:
         text = ttk.Label(text=filename)
@@ -188,7 +218,7 @@ def download2(course_list, user_id, access_token, aria2_path):
             'speed': text1,
         }
         count += 1
-    download_path = os.path.join('乐读-下载', course_name)
+    download_path = os.path.join(custom_down_path, course_name)
     if not os.path.exists(download_path):
         os.makedirs(download_path)
     open_path_button = ttk.Button(text='打开下载目录', command=lambda: os.startfile(download_path))
@@ -200,8 +230,8 @@ def download2(course_list, user_id, access_token, aria2_path):
                 tkinterlist[filename]['percentage'].configure(text='下载失败')
                 tkinterlist[filename]['speed'].configure(text=download_urls[filename]['errmsg'])
     thread = threading.Thread(target=update_download_status)
-    thread.setDaemon(True)
     thread.start()
     root.mainloop()
-    aria2process.kill()
+    importlib.reload(ttk.style)
+    importlib.reload(tkinter)
     return
