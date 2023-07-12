@@ -2,6 +2,8 @@ import requests
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import importlib
+import sys
+
 
 def sms_verify(phone_num, sms_code, zone_code):
     url = "https://passport.100tal.com/v1/web/login/sms"
@@ -23,14 +25,15 @@ def sms_verify(phone_num, sms_code, zone_code):
     response = requests.post(url, data=data, headers=headers)
     json_response = response.json()
     if json_response['errcode'] == 0:
-        return {'success': 'True',
+        return {'success': True,
                 'data': json_response['data'],
                 'msg': json_response['errmsg']
                 }
     else:
-        return {'success': 'False',
+        return {'success': False,
                 'msg': json_response['errmsg']
                 }
+
 
 def login(data):
     url = "https://course-api-online.saasp.vdyoo.com/passport/v1/login/student/code"
@@ -50,19 +53,20 @@ def login(data):
     json_response = response.json()
     return json_response
 
+
 def login2_sms(phone_num, sms_code, zone_code):
     def login_again():
         root.destroy()
-        global result_
-        result_ = {
+        global return_data
+        return_data = {
             'success': 'False'
         }
 
     def next_step():
-        global result_
+        global return_data
         root.destroy()
         data = login(login_result['data'])
-        result_ = {
+        return_data = {
             'success': 'True',
             'data': data,
         }
@@ -70,7 +74,7 @@ def login2_sms(phone_num, sms_code, zone_code):
     root = ttk.Window(title='乐读视频下载器-登陆', themename="morph")
     root.geometry("")
     login_result = sms_verify(phone_num, sms_code, zone_code)
-    if login_result['success'] == 'True':
+    if login_result['success']:
         text1 = ttk.Label(text=login_result['msg'])
         text1.grid(row=1)
         submit = ttk.Button(text='下一步', bootstyle="primary", command=next_step)
@@ -82,4 +86,8 @@ def login2_sms(phone_num, sms_code, zone_code):
         submit.grid(row=2)
     root.mainloop()
     importlib.reload(ttk.style)
-    return result_
+    try:
+        return_data
+    except:
+        sys.exit()
+    return return_data

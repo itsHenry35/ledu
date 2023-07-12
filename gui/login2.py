@@ -3,6 +3,7 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import importlib
 
+
 def pwd_verify(user, password):
     url = "https://passport.100tal.com/v1/web/login/pwd"
     headers = {
@@ -30,6 +31,7 @@ def pwd_verify(user, password):
                 'msg': json_response['errmsg']
                 }
 
+
 def login(data):
     url = "https://course-api-online.saasp.vdyoo.com/passport/v1/login/student/code"
     code = data['code']
@@ -47,6 +49,7 @@ def login(data):
     response = requests.post(url, json=data, headers=headers)
     json_response = response.json()
     return json_response
+
 
 def login2(username, password):
     def login_again():

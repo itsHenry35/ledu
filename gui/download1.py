@@ -5,6 +5,7 @@ import importlib
 from tkinter.filedialog import askdirectory
 import tkinter.messagebox as mb
 
+
 def get_course(uid, token):
     url = "https://course-api-online.saasp.vdyoo.com/course/v1/student/course/list"
     headers = {
@@ -24,12 +25,15 @@ def get_course(uid, token):
     response = requests.get(url, headers=headers)
     return response.json()
 
+
 def select_path():
     global path
     path = askdirectory()
 
+
 def download1(uid, token):
     global path
+
     def submit():
         count = 0
         for i, widget in enumerate(widgetlist):
@@ -39,12 +43,11 @@ def download1(uid, token):
                 returnlist[count]['courseid'] = idlist[numlist[i]]
                 returnlist[count]['name'] = numlist[i]
                 returnlist[count]['extensiveornot'] = 'True' if var.get() == 1 else 'False'
-                count+=1
+                count += 1
         if count == 0:
             mb.showwarning(title='警告', message='未选择课程')
         else:
             root.destroy()
-
 
     root = ttk.Window(title='乐读视频下载器-下载', themename="morph")
     root.geometry("")
@@ -69,7 +72,8 @@ def download1(uid, token):
     extensiveornot.pack(anchor='w')
     submit = ttk.Button(text='提交', bootstyle="primary", command=submit)
     submit.pack(anchor='w')
-    selectpath = ttk.Button(text='选择自定义路径（可不选，默认为程序所在目录）', bootstyle="primary-outline-toolbutton", command=select_path)
+    selectpath = ttk.Button(text='选择自定义路径（可不选，默认为程序所在目录）', bootstyle="primary-outline-toolbutton",
+                            command=select_path)
     selectpath.pack(anchor='w')
     root.mainloop()
     importlib.reload(ttk.style)
