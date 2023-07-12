@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/itsHenry35/ledu/compare/v1.2.2...v1.3.0) (2023-07-04)
+
+
+### Features
+
+* ask the user whether to open error reporting website ([5895af6](https://github.com/itsHenry35/ledu/commit/5895af6d4bba750341fa5ca8f4199abccda6347b))
+* support multi course downloading and custom download path ([70ba0b1](https://github.com/itsHenry35/ledu/commit/70ba0b1bc98156c26094c356515c23d9513b73c1))
+
 ## [1.2.2](https://github.com/itsHenry35/ledu/compare/v1.2.1...v1.2.2) (2023-06-27)
 
 
