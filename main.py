@@ -39,8 +39,7 @@ def login():
     credentials = login1()
     loginresult = perform_login(credentials)
     while loginresult['success'] == 'False':
-        loginresult = login()
-
+        login()
     set_alldata(loginresult['data'])
     datanext = login3(token, uid)
     if datanext['success'] == 'True':
@@ -82,7 +81,7 @@ except Exception as e:
     sentry_sdk.capture_exception(e)
     mb.showerror('错误','错误：' + str(e))
     yesnodialog = mb.askyesno('错误反馈', '是否打开错误反馈页面？')
-    if yesnodialog == True:
+    if yesnodialog:
             mb.showinfo('错误反馈', '请在弹出的网页底部评论区中或在GitHub上将错误反馈给开发者！')
             webbrowser.open("https://blog.itshenryz.com/2022/06/01/ledu-playback-download/")
     sys.exit()
