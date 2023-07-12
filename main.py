@@ -19,11 +19,13 @@ sentry_sdk.init(
     traces_sample_rate=1.0
 )
 
-def set_alldata(data):
+
+def set_global_variable(data):
     global token
     global uid
     token = data['hb_token']
     uid = str(data['pu_uid'])
+
 
 def perform_login(credentials):
     if credentials['pwdlogin'] == 'True':
@@ -35,15 +37,17 @@ def perform_login(credentials):
         if smscredential['pwdlogin'] == 'True':
             return perform_login(login1(str(smscredential['phonenum'])))
 
+
 def login():
     credentials = login1()
     loginresult = perform_login(credentials)
     while loginresult['success'] == 'False':
         login()
-    set_alldata(loginresult['data'])
+    set_global_variable(loginresult['data'])
     datanext = login3(token, uid)
     if datanext['success'] == 'True':
-        set_alldata(datanext['data'])
+        set_global_variable(datanext['data'])
+
 
 def download():
     result, custom_down_path = download1(uid, token)
@@ -54,6 +58,7 @@ def download():
         else:
             final = False
         download2(course, uid, token, aria2_path, custom_down_path, final)
+
 
 def get_platform_info():
     bundle_dir = sys._MEIPASS if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__))
@@ -74,14 +79,15 @@ def get_platform_info():
 
     return aria2c_path
 
+
 try:
     login()
     download()
 except Exception as e:
     sentry_sdk.capture_exception(e)
-    mb.showerror('错误','错误：' + str(e))
-    yesnodialog = mb.askyesno('错误反馈', '是否打开错误反馈页面？')
-    if yesnodialog:
-            mb.showinfo('错误反馈', '请在弹出的网页底部评论区中或在GitHub上将错误反馈给开发者！')
-            webbrowser.open("https://blog.itshenryz.com/2022/06/01/ledu-playback-download/")
+    mb.showerror('错误', '错误：' + str(e))
+    alertdialog = mb.askyesno('错误反馈', '是否打开错误反馈页面？')
+    if alertdialog:
+        mb.showinfo('错误反馈', '请在弹出的网页底部评论区中或在GitHub上将错误反馈给开发者！')
+        webbrowser.open("https://blog.itshenryz.com/2022/06/01/ledu-playback-download/")
     sys.exit()
