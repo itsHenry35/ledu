@@ -101,9 +101,9 @@ def login1_sms(phonenum):
     exitbool = True
     phonenum = str(phonenum)
     thread_ = 0
-    root = ttk.Window(title='乐读视频下载器-登陆', themename="morph")
+    root = ttk.Window(title='乐读视频下载器-登录', themename="morph")
     root.geometry("")
-    title = ttk.Label(text='登陆', font=('等线 (Body Asian)', 20))
+    title = ttk.Label(text='登录', font=('等线 (Body Asian)', 20))
     title.grid(row=0, column=0)
     text1 = ttk.Label(text='手机号：')
     text1.grid(row=1)
@@ -114,7 +114,7 @@ def login1_sms(phonenum):
     zonevar.set("请选择区号")
     zone = ttk.OptionMenu(root, zonevar, *zonelist)
     zone.grid(row=1, column=1)
-    smsswitch = ttk.Button(text='返回账号密码登陆', bootstyle="default-outline",
+    smsswitch = ttk.Button(text='返回账号密码登录', bootstyle="default-outline",
                            command=lambda: switch_to_pwd(username, root))
     smsswitch.grid(row=1, column=3)
     text2 = ttk.Label(text='验证码：')
