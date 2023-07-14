@@ -35,16 +35,16 @@ def nextpage(username, password, root):
 def login1(username_default=""):
     global exitbool
     exitbool = True
-    root = ttk.Window(title='乐读视频下载器-登陆', themename="morph")
+    root = ttk.Window(title='乐读视频下载器-登录', themename="morph")
     root.geometry("")
-    title = ttk.Label(text='登陆', font=('等线 (Body Asian)', 20))
+    title = ttk.Label(text='登录', font=('等线 (Body Asian)', 20))
     title.grid(row=0, column=0)
     text1 = ttk.Label(text='用户名(手机号或学员编号等)：')
     text1.grid(row=1)
     username = ttk.Entry(bootstyle="primary")
     username.grid(row=1, column=1)
     username.insert(0, username_default)
-    smsswitch = ttk.Button(text='短信验证码登陆', bootstyle="default-outline",
+    smsswitch = ttk.Button(text='短信验证码登录', bootstyle="default-outline",
                            command=lambda: switch_to_sms_login(username, root))
     smsswitch.grid(row=1, column=2)
     text2 = ttk.Label(text='密码：')
