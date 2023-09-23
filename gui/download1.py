@@ -51,6 +51,9 @@ def download1(uid, token):
 
     root = ttk.Window(title='乐读视频下载器-下载', themename="morph")
     root.geometry("")
+    canvas = ttk.Canvas(root)
+    scrollbar = ttk.Scrollbar(root, orient="vertical", command=canvas.yview)
+    scrollable_frame = ttk.Frame(canvas)
     data = get_course(uid, token)
     courselist, idlist, numlist, returnlist = {}, {}, [], []
     var = ttk.IntVar()
@@ -64,9 +67,27 @@ def download1(uid, token):
     widgetlist = []
     for course_name in courselist:
         numlist.append(course_name)
-        checkbutton = ttk.Checkbutton(text=course_name, bootstyle="round-toggle")
+        checkbutton = ttk.Checkbutton(scrollable_frame, text=course_name, bootstyle="round-toggle")
         checkbutton.pack(anchor='w')
         widgetlist.append(checkbutton)
+
+    canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    def configure_scroll_region(event):
+        canvas.configure(scrollregion=canvas.bbox("all"))
+
+    scrollable_frame.bind("<Configure>", configure_scroll_region)
+    def mouse_scroll(event):
+        if event.delta > 0:
+            canvas.yview_scroll(-1, "units")
+        elif event.delta < 0:
+            canvas.yview_scroll(1, "units")
+
+    root.bind("<MouseWheel>", mouse_scroll)
+
+    canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
 
     extensiveornot = ttk.Checkbutton(text='延伸课程', bootstyle="default-square-toggle", variable=var)
     extensiveornot.pack(anchor='w')
