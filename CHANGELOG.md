@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.4.0](https://github.com/itsHenry35/ledu/compare/v1.3.0...v1.4.0) (2023-09-23)
+
+
+### Features
+
+* support scrollbar ([62aa411](https://github.com/itsHenry35/ledu/commit/62aa41162de93f24cdcf060d34e4a2bae707bb46))
+
+
+### Bug Fixes
+
+* Chinese typo [skip ci] ([b63ea70](https://github.com/itsHenry35/ledu/commit/b63ea7041fd4774cb54aaebc8c98b75272347ab0))
+
+
+### Code Refactoring
+
+* code refactor with idea [skip CI] ([e82e822](https://github.com/itsHenry35/ledu/commit/e82e8229fd3a76fc25e8426334e07f24a91bb902))
+* refactor for code regulation with pycharm ([38e0306](https://github.com/itsHenry35/ledu/commit/38e0306a52ab9fcefee7111e95a5495777100410))
+
+
+### CI
+
+* don't run debug when changelog modified [skip ci] ([32ea7e7](https://github.com/itsHenry35/ledu/commit/32ea7e7e451a16b52f3387881596d8be9a5713b2))
+* only run actions when release published to avoid running three times [skip ci] ([aaded38](https://github.com/itsHenry35/ledu/commit/aaded38c4ba15ef58c5dd7a1a88c5959e3cd292e))
+
 ## [1.3.0](https://github.com/itsHenry35/ledu/compare/v1.2.2...v1.3.0) (2023-07-04)
 
 
