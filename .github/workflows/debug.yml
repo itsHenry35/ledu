@@ -1,30 +1,20 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Debug
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
     paths-ignore:
       - 'CHANGELOG.md'
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
   Build_Windows:
-    # The type of runner that the job will run on
     runs-on: windows-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
           
       - name: Set up Python
@@ -42,7 +32,13 @@ jobs:
       - name: Build and rename the artifact
         run: |
           pyinstaller --noconfirm --onefile --console --icon "D:/a/ledu/ledu/ledu.ico" --add-data "D:/a/ledu/ledu/bin/aria2c_win.exe;bin/"  "D:/a/ledu/ledu/main.py"
-          ren D:\a\ledu\ledu\dist\main.exe D:\a\ledu\ledu\dist\ledu_download_win64.exe
+          SHORT_COMMIT_ID=${GITHUB_SHA::7}
+          if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
+            FILENAME=ledu_download_win64_pr_$SHORT_COMMIT_ID.exe
+          else
+            FILENAME=ledu_download_win64_$SHORT_COMMIT_ID.exe
+          fi
+          ren D:\a\ledu\ledu\dist\main.exe D:\a\ledu\ledu\dist\$FILENAME
           
       - name: Upload
         uses: actions/upload-artifact@v3
@@ -51,12 +47,9 @@ jobs:
           path: "D:\\a\\ledu\\ledu\\dist"
           
   Build_Linux:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
           
       - name: Set up Python
@@ -74,8 +67,13 @@ jobs:
       - name: Build and rename the artifact
         run: |
           pyinstaller --noconfirm --onefile --console --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_linux_amd64:bin/"  "/home/runner/work/ledu/ledu/main.py"
-          mv /home/runner/work/ledu/ledu/dist/main /home/runner/work/ledu/ledu/dist/ledu_download_linux_amd64
-          
+          SHORT_COMMIT_ID=${GITHUB_SHA::7}
+          if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
+            FILENAME=ledu_download_linux_amd64_pr_$SHORT_COMMIT_ID
+          else
+            FILENAME=ledu_download_linux_amd64_$SHORT_COMMIT_ID
+          fi            
+          mv /home/runner/work/ledu/ledu/dist/main /home/runner/work/ledu/ledu/dist/$FILENAME          
           
       - name: Upload
         uses: actions/upload-artifact@v3
@@ -84,12 +82,9 @@ jobs:
           path: "/home/runner/work/ledu/ledu/dist"
 
   Build_Macos:
-    # The type of runner that the job will run on
     runs-on: macos-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
           
       - name: Set up Python
@@ -107,12 +102,18 @@ jobs:
       - name: Build and compress the artifact
         run: |
           pyinstaller --noconfirm --onefile --console --icon "/Users/runner/work/ledu/ledu/ledu.ico" --add-data "/Users/runner/work/ledu/ledu/bin/aria2c_macos:bin/"  "/Users/runner/work/ledu/ledu/main.py"
-          mv /Users/runner/work/ledu/ledu/dist/main /Users/runner/work/ledu/ledu/dist/ledu_download_macos
-          mv /Users/runner/work/ledu/ledu/dist/ /Users/runner/work/ledu/ledu/ledu_download_macos/
-          cd /Users/runner/work/ledu/ledu/ledu_download_macos/ && zip -r -X /Users/runner/work/ledu/ledu/ledu_download_macos.zip .
+          SHORT_COMMIT_ID=${GITHUB_SHA::7}
+          if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
+            FILENAME=ledu_download_macos_pr_$SHORT_COMMIT_ID
+          else
+            FILENAME=ledu_download_macos_$SHORT_COMMIT_ID
+          fi             
+          mv /Users/runner/work/ledu/ledu/dist/main /Users/runner/work/ledu/ledu/dist/$FILENAME
+          mv /Users/runner/work/ledu/ledu/dist/ /Users/runner/work/ledu/ledu/$FILENAME/
+          cd /Users/runner/work/ledu/ledu/$FILENAME/ && zip -r -X /Users/runner/work/ledu/ledu/$FILENAME.zip .
           
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
           name: "MacOs-build"
-          path: "/Users/runner/work/ledu/ledu/ledu_download_macos/"
+          path: "/Users/runner/work/ledu/ledu/$FILENAME/"
