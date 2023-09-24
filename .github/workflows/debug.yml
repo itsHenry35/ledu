@@ -32,7 +32,7 @@ jobs:
       - name: Build and rename the artifact
         run: |
           pyinstaller --noconfirm --onefile --console --icon "D:/a/ledu/ledu/ledu.ico" --add-data "D:/a/ledu/ledu/bin/aria2c_win.exe;bin/"  "D:/a/ledu/ledu/main.py"
-          SHORT_COMMIT_ID=${GITHUB_SHA::7}
+          $SHORT_COMMIT_ID = $env:GITHUB_SHA.Substring(0,7)
           if ($env:GITHUB_EVENT_NAME -eq "pull_request") {
             FILENAME=ledu_download_win64_pr_$SHORT_COMMIT_ID.exe
           } else {
