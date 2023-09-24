@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.4.1](https://github.com/itsHenry35/ledu/compare/v1.4.0...v1.4.1) (2023-09-24)
+
+
+### Bug Fixes
+
+* syntax error powershell varieble ([5af471b](https://github.com/itsHenry35/ledu/commit/5af471b4fa5f7e061810c6284a96aa044508353c))
+
+
+### CI
+
+* don't move macos folder and fix windows build ([04980f6](https://github.com/itsHenry35/ledu/commit/04980f64652ba0f975bf7ab850a9c8f9e515615a))
+* fix another wrong usage ([bdbc5e4](https://github.com/itsHenry35/ledu/commit/bdbc5e4190806d39d59a8c5697637fcac44a98d7))
+* fix auto merge ([4b50ff9](https://github.com/itsHenry35/ledu/commit/4b50ff9dabf15c72cc30f83c628ba4b5039e68e0))
+* fix windows syntax error ([81bae48](https://github.com/itsHenry35/ledu/commit/81bae48b7e23a7d55375fe504b4e458fe9d04e46))
+* include commit number in the debug binary ([8660daa](https://github.com/itsHenry35/ledu/commit/8660daa279a5bfee6b142b5312a6509463cdf8a0))
+* release add version number ([279392d](https://github.com/itsHenry35/ledu/commit/279392d2e0f2fe59a2d0ead2cf5b7a3fa61eec86))
+* upload debug binary for MacOS ([b159f49](https://github.com/itsHenry35/ledu/commit/b159f497fc0fc899cc3eb084547ec9c744ae2193))
+* use console for debug version ([ffb18ab](https://github.com/itsHenry35/ledu/commit/ffb18abf7994fe6fd789871ef146e295e790a0bc))
+* wrong filename ([299c3b9](https://github.com/itsHenry35/ledu/commit/299c3b90213cbecd0aebe6a9eba540c8d06830a9))
+
 ## [1.4.0](https://github.com/itsHenry35/ledu/compare/v1.3.0...v1.4.0) (2023-09-23)
 
 
