@@ -33,11 +33,11 @@ jobs:
         run: |
           pyinstaller --noconfirm --onefile --console --icon "D:/a/ledu/ledu/ledu.ico" --add-data "D:/a/ledu/ledu/bin/aria2c_win.exe;bin/"  "D:/a/ledu/ledu/main.py"
           SHORT_COMMIT_ID=${GITHUB_SHA::7}
-          if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
+          if ($env:GITHUB_EVENT_NAME -eq "pull_request") {
             FILENAME=ledu_download_win64_pr_$SHORT_COMMIT_ID.exe
-          else
+          else {
             FILENAME=ledu_download_win64_$SHORT_COMMIT_ID.exe
-          fi
+          }
           ren D:\a\ledu\ledu\dist\main.exe D:\a\ledu\ledu\dist\$FILENAME
           
       - name: Upload
@@ -109,11 +109,9 @@ jobs:
             FILENAME=ledu_download_macos_$SHORT_COMMIT_ID
           fi             
           mv /Users/runner/work/ledu/ledu/dist/main /Users/runner/work/ledu/ledu/dist/$FILENAME
-          mv /Users/runner/work/ledu/ledu/dist/ /Users/runner/work/ledu/ledu/$FILENAME/
-          cd /Users/runner/work/ledu/ledu/$FILENAME/ && zip -r -X /Users/runner/work/ledu/ledu/$FILENAME.zip .
           
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
           name: "MacOs-build"
-          path: "/Users/runner/work/ledu/ledu/$FILENAME/"
+          path: "/Users/runner/work/ledu/ledu/dist/"
