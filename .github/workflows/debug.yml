@@ -35,7 +35,7 @@ jobs:
           SHORT_COMMIT_ID=${GITHUB_SHA::7}
           if ($env:GITHUB_EVENT_NAME -eq "pull_request") {
             FILENAME=ledu_download_win64_pr_$SHORT_COMMIT_ID.exe
-          else {
+          } else {
             FILENAME=ledu_download_win64_$SHORT_COMMIT_ID.exe
           }
           ren D:\a\ledu\ledu\dist\main.exe D:\a\ledu\ledu\dist\$FILENAME
