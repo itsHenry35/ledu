@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.5.0](https://github.com/itsHenry35/ledu/compare/v1.4.1...v1.5.0) (2023-09-29)
+
+
+### Features
+
+* replace illegal characters ([829bd32](https://github.com/itsHenry35/ledu/commit/829bd3299e9f62860efae82bd90ed76880996305))
+
+
+### Bug Fixes
+
+* fix logical error when error password occurs ([91f729b](https://github.com/itsHenry35/ledu/commit/91f729b01fed84490b7b925aab77d2c48127769e))
+
+
+### CI
+
+* remove auto merge ([12d0347](https://github.com/itsHenry35/ledu/commit/12d034776b2a8488f2655e17c2f52f624cfe90ff))
+
 ## [1.4.1](https://github.com/itsHenry35/ledu/compare/v1.4.0...v1.4.1) (2023-09-24)
 
 
