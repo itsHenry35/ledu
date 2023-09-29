@@ -43,6 +43,7 @@ def login():
     loginresult = perform_login(credentials)
     while loginresult['success'] == 'False':
         login()
+        return
     set_global_variable(loginresult['data'])
     datanext = login3(token, uid)
     if datanext['success'] == 'True':
