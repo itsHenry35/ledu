@@ -34,7 +34,8 @@ def get_lecturers(course_list, user_id, access_token):
     global course_id, class_id, subject_id, tutor_id, lecturer_id, course_name
     course_id = course_list['courseid']
     tutor_id = course_list['tutorid']
-    course_name = course_list['name']
+    tr_table = str.maketrans('\/:*?"<>|', '＼／：＊？＂＜＞｜')
+    course_name = course_list['name'].translate(tr_table)
     additional_data = f'?stuId={user_id}&stdCourseId={course_id}&type=1&needPage=1&page=1&perPage=500&order=asc'
     url += additional_data
     headers = {
@@ -194,10 +195,9 @@ def download2(course_list, user_id, access_token, aria2_path, custom_down_path, 
 
     root = ttk.Window(title='乐读视频下载器-下载', themename="morph")
     root.geometry("")
-    if not final:
-        aria2process = subprocess.Popen(
-            aria2_path + ' --enable-rpc --rpc-listen-port=6800 --max-connection-per-server=16 --file-allocation=none --max-concurrent-downloads=64',
-            shell=True)
+    aria2process = subprocess.Popen(
+        aria2_path + ' --enable-rpc --rpc-listen-port=6800 --max-connection-per-server=16 --file-allocation=none --max-concurrent-downloads=64',
+        shell=True)
     time.sleep(1)
     jsonrpc = Aria2RPC()
     lecturers = get_lecturers(course_list, user_id, access_token)
