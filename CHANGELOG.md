@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/itsHenry35/ledu/compare/v1.5.0...v1.5.1) (2023-11-03)
+
+
+### Bug Fixes
+
+* fix the error if the class hasn't started yet ([4eb62fb](https://github.com/itsHenry35/ledu/commit/4eb62fbeea79f4359366ab375be4f7773822eb0f))
+
 ## [1.5.0](https://github.com/itsHenry35/ledu/compare/v1.4.1...v1.5.0) (2023-09-29)
 
 
