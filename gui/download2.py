@@ -50,6 +50,8 @@ def get_lecturers(course_list, user_id, access_token):
     }
     response = requests.get(url, headers=headers)
     lecturers_data = response.json()
+    if lecturers_data == []:
+        return []
     class_id = lecturers_data[0]['stdClassId']
     subject_id = lecturers_data[0]['stdSubject']
     lecturer_id = lecturers_data[0]['lecturerId']
