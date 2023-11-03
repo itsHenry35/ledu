@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.2](https://github.com/itsHenry35/ledu/compare/v1.5.1...v1.5.2) (2023-11-03)
+
+
+### CI
+
+* fix broken CI because of empty version number ([25b18a9](https://github.com/itsHenry35/ledu/commit/25b18a9462ee49e2de23ae9624ab2bebe9acd6c2))
+* rename main.yml to build.yml ([77c45b8](https://github.com/itsHenry35/ledu/commit/77c45b82ec61f372ef78868de57284e95a969359))
+
 ## [1.5.1](https://github.com/itsHenry35/ledu/compare/v1.5.0...v1.5.1) (2023-11-03)
 
 
