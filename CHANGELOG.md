@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.6.0](https://github.com/itsHenry35/ledu/compare/v1.5.2...v1.6.0) (2023-11-05)
+
+
+### Features
+
+* add subject name to the downloaded files ([d9ec038](https://github.com/itsHenry35/ledu/commit/d9ec03851fc440ba00092587113fc078d0502b7a))
+* pause / resume button ([832eef8](https://github.com/itsHenry35/ledu/commit/832eef8d4300a6f793cdfdecd5ce91ffcbd7f13d))
+* show progress (eg. 2/4 downloaded) ([890dfbd](https://github.com/itsHenry35/ledu/commit/890dfbdb515e4c69bbd58d1c8526884d0ef0d935))
+
 ## [1.5.2](https://github.com/itsHenry35/ledu/compare/v1.5.1...v1.5.2) (2023-11-03)
 
 
