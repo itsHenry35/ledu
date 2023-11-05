@@ -169,6 +169,11 @@ def download2(course_list, user_id, access_token, aria2_path, custom_down_path, 
     def update_download_status():
         global aria2process
         while True:
+            if pauseresume_button['text'] == '继续':
+                for filename in gid_group:
+                    tkinterlist[filename]['speed'].configure(text='已暂停')
+                time.sleep(0.1)
+                continue
             all_success = True
             for filename in gid_group:
                 stat = jsonrpc.tellStatus(gid=str(gid_group[filename]))
@@ -196,6 +201,14 @@ def download2(course_list, user_id, access_token, aria2_path, custom_down_path, 
                     aria2process.terminate()
                 stop_thread(thread)
             time.sleep(0.1)
+    
+    def switchpauseresume(button):
+        if button['text'] == '暂停':
+            jsonrpc.pauseAll()
+            pauseresume_button.configure(text='继续')
+        elif button['text'] == '继续':
+            jsonrpc.unpauseAll()
+            pauseresume_button.configure(text='暂停')
 
     root = ttk.Window(title='乐读视频下载器-下载', themename="morph")
     root.geometry("")
@@ -230,7 +243,7 @@ def download2(course_list, user_id, access_token, aria2_path, custom_down_path, 
         progress.value = 0
         text0 = ttk.Label(text='0%')
         text0.grid(row=count, column=2)
-        text1 = ttk.Label(text='下载速度：Nah')
+        text1 = ttk.Label(text='下载速度：NaN')
         text1.grid(row=count, column=3)
         tkinterlist[filename] = {
             'progress': progress,
@@ -243,6 +256,8 @@ def download2(course_list, user_id, access_token, aria2_path, custom_down_path, 
         os.makedirs(download_path)
     open_path_button = ttk.Button(text='打开下载目录', command=lambda: os.startfile(download_path))
     open_path_button.grid(row=count + 1, column=0)
+    pauseresume_button = ttk.Button(text='暂停', command=lambda: switchpauseresume(pauseresume_button))
+    pauseresume_button.grid(row=count + 1, column=1)
     for filename in download_urls:
         if download_urls[filename]['success'] == 'True':
             aria2_download(download_urls[filename]['url'], download_path, filename)
