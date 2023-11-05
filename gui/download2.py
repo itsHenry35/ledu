@@ -153,11 +153,13 @@ def get_cram_class(course, user_id, access_token):
     }
 
 
-def download2(course_list, user_id, access_token, aria2_path, custom_down_path, final):
+def download2(course_list, user_id, access_token, aria2_path, custom_down_path, now, all):
     global aria2process
     if custom_down_path == '':
         custom_down_path = "乐读-下载"
     gid_group = {}
+
+    final = True if now == all else False
 
     def aria2_download(link, path, filename):
         options = {"dir": path, "out": filename}
@@ -217,7 +219,7 @@ def download2(course_list, user_id, access_token, aria2_path, custom_down_path, 
         count += 1
     count = 2
     tkinterlist = {}
-    text = ttk.Label(text='当前正在下载课程：' + course_name)
+    text = ttk.Label(text=f"当前正在下载课程： {course_name} {now} / {all}")
     text.grid(row=1, column=0)
     for filename in download_urls:
         text = ttk.Label(text=filename)
