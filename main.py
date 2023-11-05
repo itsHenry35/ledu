@@ -54,11 +54,7 @@ def download():
     result, custom_down_path = download1(uid, token)
     aria2_path = get_platform_info()
     for count, course in enumerate(result):
-        if count == len(result) - 1:
-            final = True
-        else:
-            final = False
-        download2(course, uid, token, aria2_path, custom_down_path, final)
+        download2(course, uid, token, aria2_path, custom_down_path, count + 1, len(result))
 
 
 def get_platform_info():
