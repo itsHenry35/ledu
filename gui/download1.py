@@ -61,8 +61,8 @@ def download1(uid, token):
     path = ""
 
     for course in data:
-        courselist[course['courseName']] = course['tutorId']
-        idlist[course['courseName']] = course['stdCourseId']
+        courselist[f"{course['subjectName']} - {course['courseName']}"] = course['tutorId']
+        idlist[f"{course['subjectName']} - {course['courseName']}"] = course['stdCourseId']
 
     widgetlist = []
     for course_name in courselist:
