@@ -201,7 +201,7 @@ def download2(course_list, user_id, access_token, aria2_path, custom_down_path, 
                     aria2process.terminate()
                 stop_thread(thread)
             time.sleep(0.1)
-    
+
     def switchpauseresume(button):
         if button['text'] == '暂停':
             jsonrpc.pauseAll()
