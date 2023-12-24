@@ -26,10 +26,9 @@ def pwd_verify(user, password):
                 'data': json_response['data'],
                 'msg': json_response['errmsg']
                 }
-    else:
-        return {'success': 'False',
-                'msg': json_response['errmsg']
-                }
+    return {'success': 'False',
+            'msg': json_response['errmsg']
+            }
 
 
 def login(data):
