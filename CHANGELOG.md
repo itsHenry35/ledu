@@ -1,5 +1,36 @@
 # Changelog
 
+## [1.6.1](https://github.com/itsHenry35/ledu/compare/v1.6.0...v1.6.1) (2023-12-24)
+
+
+### Code Refactoring
+
+* convert string with anomalous backslash into a raw string ([1a068b6](https://github.com/itsHenry35/ledu/commit/1a068b6027457df31b4c01b5297c380a8c696aa6))
+* convert string with anomalous backslash into a raw string ([1a068b6](https://github.com/itsHenry35/ledu/commit/1a068b6027457df31b4c01b5297c380a8c696aa6))
+* convert string with anomalous backslash into a raw string ([8523c36](https://github.com/itsHenry35/ledu/commit/8523c36b5be37618cd3c6ea49b17a93e420d2cc6))
+* import packages in separate lines ([a96afad](https://github.com/itsHenry35/ledu/commit/a96afadff2e160890ac17878340d07259295af4a))
+* refactor unnecessary `else` / `elif` when `if` block has a `raise` statement ([d1a127b](https://github.com/itsHenry35/ledu/commit/d1a127b5cd9de8874cc9ef9e29acd8b77001705e))
+* refactor unnecessary `else` / `elif` when `if` block has a `raise` statement ([d1a127b](https://github.com/itsHenry35/ledu/commit/d1a127b5cd9de8874cc9ef9e29acd8b77001705e))
+* refactor unnecessary `else` / `elif` when `if` block has a `raise` statement ([d213fbc](https://github.com/itsHenry35/ledu/commit/d213fbcd81ee6b96bb81745f0334b16072586a60))
+* refactor unnecessary `else` / `elif` when `if` block has a `return` statement ([6feb186](https://github.com/itsHenry35/ledu/commit/6feb1866fd630928f7e9480044d00387b6712692))
+* remove unnecessary return statement ([c8b38cf](https://github.com/itsHenry35/ledu/commit/c8b38cf83424cb6237321f2d89b4fe8782465a91))
+* remove unnecessary return statement ([c8b38cf](https://github.com/itsHenry35/ledu/commit/c8b38cf83424cb6237321f2d89b4fe8782465a91))
+* remove unnecessary return statement ([79bfb7e](https://github.com/itsHenry35/ledu/commit/79bfb7edb68af559a7d4fbe61b9ecf3df21ff396))
+* remove unnecessary whitespace ([1c430fe](https://github.com/itsHenry35/ledu/commit/1c430fe485bf871a25e956addc2030be22ff59b7))
+* remove unnecessary whitespace ([1c430fe](https://github.com/itsHenry35/ledu/commit/1c430fe485bf871a25e956addc2030be22ff59b7))
+* remove unnecessary whitespace ([74f1e9b](https://github.com/itsHenry35/ledu/commit/74f1e9bf086b2501b45a5334e0fcd96035d80a41))
+* replace multiple `==` checks with `in` ([026e5b2](https://github.com/itsHenry35/ledu/commit/026e5b2ba9dbde7d4beefb0d61ad013dfe7f74f2))
+
+
+### Performance Improvements
+
+* only open aria2 process at first run ([7b1ef99](https://github.com/itsHenry35/ledu/commit/7b1ef993282b77df961ae8c712c2b4db7cc1f5c4))
+
+
+### CI
+
+* add .deepsource.toml ([ba623cb](https://github.com/itsHenry35/ledu/commit/ba623cb5a52f907182956c10bfb935b79727172f))
+
 ## [1.6.0](https://github.com/itsHenry35/ledu/compare/v1.5.2...v1.6.0) (2023-11-05)
 
 
