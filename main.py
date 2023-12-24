@@ -5,7 +5,9 @@ from gui.download2 import download2
 from gui.login1_sms import login1_sms
 from gui.login2_sms import login2_sms
 from gui.login3 import login3
-import sys, os, webbrowser
+import sys
+import os
+import webbrowser
 import platform
 import tkinter.messagebox as mb
 import sentry_sdk
