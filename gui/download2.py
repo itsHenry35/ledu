@@ -270,4 +270,3 @@ def download2(course_list, user_id, access_token, aria2_path, custom_down_path, 
     root.mainloop()
     importlib.reload(ttk.style)
     importlib.reload(tkinter)
-    return
