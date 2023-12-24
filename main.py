@@ -32,12 +32,11 @@ def set_global_variable(data):
 def perform_login(credentials):
     if credentials['pwdlogin'] == 'True':
         return login2(credentials['usrname'], credentials['pwd'])
-    else:
-        smscredential = login1_sms(credentials['phonenum'])
-        if smscredential['pwdlogin'] == 'False':
-            return login2_sms(smscredential['phonenum'], smscredential['code'], smscredential['zonecode'])
-        if smscredential['pwdlogin'] == 'True':
-            return perform_login(login1(str(smscredential['phonenum'])))
+    smscredential = login1_sms(credentials['phonenum'])
+    if smscredential['pwdlogin'] == 'False':
+        return login2_sms(smscredential['phonenum'], smscredential['code'], smscredential['zonecode'])
+    if smscredential['pwdlogin'] == 'True':
+        return perform_login(login1(str(smscredential['phonenum'])))
 
 
 def login():

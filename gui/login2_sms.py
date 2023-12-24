@@ -29,10 +29,9 @@ def sms_verify(phone_num, sms_code, zone_code):
                 'data': json_response['data'],
                 'msg': json_response['errmsg']
                 }
-    else:
-        return {'success': False,
-                'msg': json_response['errmsg']
-                }
+    return {'success': False,
+            'msg': json_response['errmsg']
+            }
 
 
 def login(data):
