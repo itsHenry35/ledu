@@ -34,7 +34,7 @@ def get_lecturers(course_list, user_id, access_token):
     global course_id, class_id, subject_id, tutor_id, lecturer_id, course_name
     course_id = course_list['courseid']
     tutor_id = course_list['tutorid']
-    tr_table = str.maketrans('\/:*?"<>|', '＼／：＊？＂＜＞｜')
+    tr_table = str.maketrans(r'\/:*?"<>|', '＼／：＊？＂＜＞｜')
     course_name = course_list['name'].translate(tr_table)
     additional_data = f'?stuId={user_id}&stdCourseId={course_id}&type=1&needPage=1&page=1&perPage=500&order=asc'
     url += additional_data
