@@ -67,7 +67,7 @@ def get_platform_info():
     elif platform_ == 'Linux':
         if platform.machine == 'x86_64':
             aria2c_path = bundle_dir + '/bin/aria2c_linux_amd64'
-        if platform.machine == 'armv8' or platform.machine == 'armv8l':
+        if platform.machine in ('armv8', 'armv8l'):
             aria2c_path = bundle_dir + '/bin/aria2c_linux_arm64'
     elif platform_ == 'Darwin':
         aria2c_path = bundle_dir + '/bin/aria2c_macos'
