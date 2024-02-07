@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.0.0](https://github.com/itsHenry35/ledu/compare/v1.6.1...v2.0.0) (2024-02-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* import aria2c from motrix
+
+### Features
+
+* import aria2c from motrix ([c432ff3](https://github.com/itsHenry35/ledu/commit/c432ff3a957e8be6117dfee4717535664ebab93b))
+* new url place support and support for "无回放"courses ([149f762](https://github.com/itsHenry35/ledu/commit/149f7626bd90392b05afd44af301c40475d89e53))
+
+
+### CI
+
+* error debug aria2c path ([33275cf](https://github.com/itsHenry35/ledu/commit/33275cfb2963493eba834fbe1929bb962f0dc3e8))
+
 ## [1.6.1](https://github.com/itsHenry35/ledu/compare/v1.6.0...v1.6.1) (2023-12-24)
 
 
