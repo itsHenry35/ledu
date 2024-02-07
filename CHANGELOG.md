@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/itsHenry35/ledu/compare/v2.0.0...v2.0.1) (2024-02-07)
+
+
+### Docs
+
+* improve error feedback ([a2ef373](https://github.com/itsHenry35/ledu/commit/a2ef373f64cf10ecbebb09fc7a6ac7371ed29c2e))
+
 ## [2.0.0](https://github.com/itsHenry35/ledu/compare/v1.6.1...v2.0.0) (2024-02-07)
 
 
