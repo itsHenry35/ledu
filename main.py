@@ -84,8 +84,8 @@ try:
 except Exception as e:
     sentry_sdk.capture_exception(e)
     mb.showerror('错误', '错误：' + str(e))
-    alertdialog = mb.askyesno('错误反馈', '是否打开错误反馈页面？')
+    alertdialog = mb.askyesno('问题反馈', '是否向作者反映该问题？')
     if alertdialog:
-        mb.showinfo('错误反馈', '请在弹出的网页底部评论区中或在GitHub上将错误反馈给开发者！')
+        mb.showinfo('问题反馈', '请在弹出的网页底部评论区中或在GitHub上提issue将错误反馈给开发者！')
         webbrowser.open("https://blog.itshenryz.com/2022/06/01/ledu-playback-download/")
     sys.exit()
