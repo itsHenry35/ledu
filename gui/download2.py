@@ -79,24 +79,24 @@ def get_download_url(lecture, user_id, access_token):
         "version": "3.21.0.84",
         "Referer": "https://speiyou.cn/",
     }
+    video_url = ""
+    error_message = ""
+    success = 'False'
     if live_type == 'SMALL_GROUPS_V2_MODE':
         url = 'https://classroom-api-online.saasp.vdyoo.com/playback/v1/video/init'
         response = requests.get(url, headers=headers)
         video_data = response.json()
-        video_url = ""
-        error_message = ""
-        try:
-            video_url = video_data['videoUrls'][2]
-            success = 'True'
-        except:
+        for url in video_data["videoUrls"]:
+            if ".mp4" in url:
+                video_url = url
+                success = 'True'
+                break
+        if success == 'False':
             error_message = video_data['message']
-            success = 'False'
     if live_type == 'RECORD_MODE':
         url = 'https://classroom-api-online.saasp.vdyoo.com/classroom-ai/record/v1/resources'
         response = requests.get(url, headers=headers)
         video_data = response.json()
-        video_url = ""
-        error_message = ""
         try:
             definitions = video_data['definitions']
             values = list(definitions.values())
@@ -105,6 +105,8 @@ def get_download_url(lecture, user_id, access_token):
         except:
             error_message = video_data['message']
             success = 'False'
+    if success == 'False' and error_message == "":
+        error_message = "未找到回放"
     return {
         "url": video_url,
         "success": success,
