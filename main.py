@@ -78,14 +78,14 @@ def get_aria2c_path_conf():
     return os.path.join(bundle_dir, "bin", f"aria2c_{platform_string}_{arch}" + (".exe" if platform_string == "win32" else "")), os.path.join(bundle_dir, "bin", f"aria2_{platform_string}.conf")
 
 
-# try:
-login()
-download()
-# except Exception as e:
-#     sentry_sdk.capture_exception(e)
-#     mb.showerror('错误', '错误：' + str(e))
-#     alertdialog = mb.askyesno('错误反馈', '是否打开错误反馈页面？')
-#     if alertdialog:
-#         mb.showinfo('错误反馈', '请在弹出的网页底部评论区中或在GitHub上将错误反馈给开发者！')
-#         webbrowser.open("https://blog.itshenryz.com/2022/06/01/ledu-playback-download/")
-#     sys.exit()
+try:
+    login()
+    download()
+except Exception as e:
+    sentry_sdk.capture_exception(e)
+    mb.showerror('错误', '错误：' + str(e))
+    alertdialog = mb.askyesno('错误反馈', '是否打开错误反馈页面？')
+    if alertdialog:
+        mb.showinfo('错误反馈', '请在弹出的网页底部评论区中或在GitHub上将错误反馈给开发者！')
+        webbrowser.open("https://blog.itshenryz.com/2022/06/01/ledu-playback-download/")
+    sys.exit()
