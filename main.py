@@ -53,39 +53,39 @@ def login():
 
 def download():
     result, custom_down_path = download1(uid, token)
-    aria2_path = get_platform_info()
+    aria2_path, aria2_config = get_aria2c_path_conf()
     for count, course in enumerate(result):
-        download2(course, uid, token, aria2_path, custom_down_path, count + 1, len(result))
+        download2(course, uid, token, aria2_path, aria2_config, custom_down_path, count + 1, len(result))
 
 
-def get_platform_info():
+def get_aria2c_path_conf():
+    arch_map = {
+        "amd64": "x64",
+        "AMD64": "x64",
+        "x86_64": "x64",
+        "x64": "x64",
+        "aarch64": "arm64",
+        "arm64": "arm64",
+    }
+    os_map = {
+        "Windows": "win32",
+        "Linux": "linux",
+        "Darwin": "darwin"
+    }
     bundle_dir = sys._MEIPASS if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__))
-    platform_ = platform.system()
-    aria2c_path = ""
-
-    if platform_ == 'Windows':
-        aria2c_path = f"\"{bundle_dir}\\bin\\aria2c_win.exe\""
-    elif platform_ == 'Linux':
-        if platform.machine == 'x86_64':
-            aria2c_path = bundle_dir + '/bin/aria2c_linux_amd64'
-        if platform.machine in ('armv8', 'armv8l'):
-            aria2c_path = bundle_dir + '/bin/aria2c_linux_arm64'
-    elif platform_ == 'Darwin':
-        aria2c_path = bundle_dir + '/bin/aria2c_macos'
-    else:
-        raise Exception(f'暂不支持的系统！请使用Windows、Linux、MacOSX或Android系统(测试中)！你的系统是：{platform_}')
-
-    return aria2c_path
+    platform_string = os_map[platform.system()]
+    arch = arch_map[platform.machine()]
+    return os.path.join(bundle_dir, "bin", f"aria2c_{platform_string}_{arch}" + (".exe" if platform_string == "win32" else "")), os.path.join(bundle_dir, "bin", f"aria2_{platform_string}.conf")
 
 
-try:
-    login()
-    download()
-except Exception as e:
-    sentry_sdk.capture_exception(e)
-    mb.showerror('错误', '错误：' + str(e))
-    alertdialog = mb.askyesno('错误反馈', '是否打开错误反馈页面？')
-    if alertdialog:
-        mb.showinfo('错误反馈', '请在弹出的网页底部评论区中或在GitHub上将错误反馈给开发者！')
-        webbrowser.open("https://blog.itshenryz.com/2022/06/01/ledu-playback-download/")
-    sys.exit()
+# try:
+login()
+download()
+# except Exception as e:
+#     sentry_sdk.capture_exception(e)
+#     mb.showerror('错误', '错误：' + str(e))
+#     alertdialog = mb.askyesno('错误反馈', '是否打开错误反馈页面？')
+#     if alertdialog:
+#         mb.showinfo('错误反馈', '请在弹出的网页底部评论区中或在GitHub上将错误反馈给开发者！')
+#         webbrowser.open("https://blog.itshenryz.com/2022/06/01/ledu-playback-download/")
+#     sys.exit()
