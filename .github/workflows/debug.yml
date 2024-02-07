@@ -31,7 +31,7 @@ jobs:
       
       - name: Build and rename the artifact
         run: |
-          pyinstaller --noconfirm --onefile --console --icon "D:/a/ledu/ledu/ledu.ico" --add-data "D:/a/ledu/ledu/bin/aria2c_win.exe;bin/"  "D:/a/ledu/ledu/main.py"
+          pyinstaller --noconfirm --onefile --console --icon "D:/a/ledu/ledu/ledu.ico" --add-data "D:/a/ledu/ledu/bin/aria2c_win32_x64.exe;bin/" --add-data "D:/a/ledu/ledu/bin/aria2_win32.conf;bin/"  "D:/a/ledu/ledu/main.py"
           $SHORT_COMMIT_ID = $env:GITHUB_SHA.Substring(0,7)
           if ($env:GITHUB_EVENT_NAME -eq "pull_request") {
             $FILENAME = "ledu_download_win64_PR_$($SHORT_COMMIT_ID).exe"
@@ -66,7 +66,7 @@ jobs:
       
       - name: Build and rename the artifact
         run: |
-          pyinstaller --noconfirm --onefile --console --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_linux_amd64:bin/"  "/home/runner/work/ledu/ledu/main.py"
+          pyinstaller --noconfirm --onefile --console --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_linux_x64:bin/" --add-data "/home/runner/work/ledu/ledu/bin/aria2_linux.conf:bin/" "/home/runner/work/ledu/ledu/main.py"
           SHORT_COMMIT_ID=${GITHUB_SHA::7}
           if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
             FILENAME=ledu_download_linux_amd64_pr_$SHORT_COMMIT_ID
@@ -101,7 +101,7 @@ jobs:
       
       - name: Build and compress the artifact
         run: |
-          pyinstaller --noconfirm --onefile --console --icon "/Users/runner/work/ledu/ledu/ledu.ico" --add-data "/Users/runner/work/ledu/ledu/bin/aria2c_macos:bin/"  "/Users/runner/work/ledu/ledu/main.py"
+          pyinstaller --noconfirm --onefile --console --icon "/Users/runner/work/ledu/ledu/ledu.ico" --add-data "/Users/runner/work/ledu/ledu/bin/aria2c_darwin_x64:bin/" --add-data "/Users/runner/work/ledu/ledu/bin/aria2_darwin.conf:bin/" "/Users/runner/work/ledu/ledu/main.py"
           SHORT_COMMIT_ID=${GITHUB_SHA::7}
           if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
             FILENAME=ledu_download_macos_pr_$SHORT_COMMIT_ID
