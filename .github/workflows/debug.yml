@@ -41,7 +41,7 @@ jobs:
           ren D:\a\ledu\ledu\dist\main.exe D:\a\ledu\ledu\dist\$FILENAME
           
       - name: Upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: "Windows-build"
           path: "D:\\a\\ledu\\ledu\\dist"
@@ -76,7 +76,7 @@ jobs:
           mv /home/runner/work/ledu/ledu/dist/main /home/runner/work/ledu/ledu/dist/$FILENAME          
           
       - name: Upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: "Linux-build"
           path: "/home/runner/work/ledu/ledu/dist"
@@ -111,7 +111,7 @@ jobs:
           mv /Users/runner/work/ledu/ledu/dist/main /Users/runner/work/ledu/ledu/dist/$FILENAME
           
       - name: Upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: "MacOs-build"
           path: "/Users/runner/work/ledu/ledu/dist/"
