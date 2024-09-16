@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0](https://github.com/itsHenry35/ledu/compare/v2.0.1...v2.1.0) (2024-09-16)
+
+
+### Features
+
+* don't pop up aria2 window ([43f713e](https://github.com/itsHenry35/ledu/commit/43f713ea212d5d8b694250e730b9fe0a4e6a83d5))
+* support 'COMBINE_SMALL_CLASS_MODE' ([1026525](https://github.com/itsHenry35/ledu/commit/1026525c7722c2be08862301beec8b4896b85b5a))
+
 ## [2.0.1](https://github.com/itsHenry35/ledu/compare/v2.0.0...v2.0.1) (2024-02-07)
 
 
