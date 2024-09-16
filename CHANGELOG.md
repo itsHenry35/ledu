@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/itsHenry35/ledu/compare/v2.1.0...v2.1.1) (2024-09-16)
+
+
+### Bug Fixes
+
+* unable to download in linux ([a7663dd](https://github.com/itsHenry35/ledu/commit/a7663dd77c424e37b6d5cff0e1d8cd0ec67f7f15))
+
 ## [2.1.0](https://github.com/itsHenry35/ledu/compare/v2.0.1...v2.1.0) (2024-09-16)
 
 
