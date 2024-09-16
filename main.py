@@ -55,7 +55,7 @@ def download():
     result, custom_down_path = download1(uid, token)
     aria2_path, aria2_config = get_aria2c_path_conf()
     for count, course in enumerate(result):
-        download2(course, uid, token, aria2_path, aria2_config, custom_down_path, count + 1, len(result))
+        download2(course, uid, token, aria2_path, aria2_config, custom_down_path, count + 1, len(result), platform.system()=="Windows")
 
 
 def get_aria2c_path_conf():

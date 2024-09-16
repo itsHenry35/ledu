@@ -156,7 +156,7 @@ def get_cram_class(course, user_id, access_token):
     }
 
 
-def download2(course_list, user_id, access_token, aria2_path, aria2_config, custom_down_path, now, all):
+def download2(course_list, user_id, access_token, aria2_path, aria2_config, custom_down_path, now, all, isWindows):
     global aria2process
     if custom_down_path == '':
         custom_down_path = "乐读-下载"
@@ -216,7 +216,7 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
     root = ttk.Window(title='乐读视频下载器-下载', themename="morph")
     root.geometry("")
     if now==1:
-        aria2process = subprocess.Popen([aria2_path, "--conf-path", aria2_config], shell=True)
+        aria2process = subprocess.Popen([aria2_path, "--conf-path", aria2_config], shell=isWindows)
     time.sleep(1)
     jsonrpc = Aria2RPC()
     lecturers = get_lecturers(course_list, user_id, access_token)
