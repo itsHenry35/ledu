@@ -82,7 +82,7 @@ def get_download_url(lecture, user_id, access_token):
     video_url = ""
     error_message = ""
     success = 'False'
-    if live_type == 'SMALL_GROUPS_V2_MODE':
+    if live_type == 'SMALL_GROUPS_V2_MODE' or live_type == 'COMBINE_SMALL_CLASS_MODE':
         url = 'https://classroom-api-online.saasp.vdyoo.com/playback/v1/video/init'
         response = requests.get(url, headers=headers)
         video_data = response.json()
@@ -107,6 +107,7 @@ def get_download_url(lecture, user_id, access_token):
             success = 'False'
     if success == 'False' and error_message == "":
         error_message = "未找到回放"
+        print(live_type)
     return {
         "url": video_url,
         "success": success,
