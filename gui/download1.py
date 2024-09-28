@@ -42,7 +42,7 @@ def download1(uid, token):
                 returnlist[count]['tutorid'] = courselist[numlist[i]]
                 returnlist[count]['courseid'] = idlist[numlist[i]]
                 returnlist[count]['name'] = numlist[i]
-                returnlist[count]['extensiveornot'] = 'True' if var.get() == 1 else 'False'
+                returnlist[count]['extensiveornot'] = True if var.get() == 1 else False
                 count += 1
         if count == 0:
             mb.showwarning(title='警告', message='未选择课程')
@@ -58,6 +58,8 @@ def download1(uid, token):
     courselist, idlist, numlist, returnlist = {}, {}, [], []
     var = ttk.IntVar()
     var.set(0)
+    isoverride = ttk.IntVar()
+    isoverride.set(0)
     path = ""
 
     for course in data:
@@ -98,4 +100,4 @@ def download1(uid, token):
     selectpath.pack(anchor='w')
     root.mainloop()
     importlib.reload(ttk.style)
-    return returnlist, path
+    return returnlist, path, isoverride.get()==1
