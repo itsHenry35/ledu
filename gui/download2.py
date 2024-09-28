@@ -28,6 +28,23 @@ def _async_raise(tid, exctype):
 def stop_thread(thread):
     _async_raise(thread.ident, SystemExit)
 
+def wait_for_aria2():
+    print("start")
+    url = 'http://localhost:6800/jsonrpc'
+    timeout = 10
+    start_time = time.time()
+
+    while time.time() - start_time < timeout:
+        try:
+            response = requests.post(url, json={"jsonrpc": "2.0", "method": "aria2.getVersion", "id": "1"}, timeout=0.4)
+            if response.status_code == 200:
+                return True
+        except requests.ConnectionError:
+            print("retry")
+            time.sleep(1)
+    else:
+        return False
+
 
 def get_lecturers(course_list, user_id, access_token):
     url = "https://course-api-online.saasp.vdyoo.com/course/v1/student/course/user-live-list"
@@ -217,7 +234,8 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
     root.geometry("")
     if now==1:
         aria2process = subprocess.Popen([aria2_path, "--conf-path", aria2_config], shell=isWindows)
-    time.sleep(1)
+    if wait_for_aria2() == False:
+        raise Exception("Aria2c failed to start")
     jsonrpc = aria2p.Client(
         host="http://localhost",
         port=6800
@@ -228,11 +246,25 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
     count = 1
     for lecture in lecturers:
         if extensive_or_not == False:
-            result = get_download_url(lecture, user_id, access_token)
             filename = f'第{count}讲.mp4'
+            if isoverride == False and os.path.exists(os.path.join(custom_down_path, course_name, filename)) and not os.path.exists(os.path.join(custom_down_path, course_name, filename + '.aria2')):
+                result = {
+                    "url": "",
+                    "success": False,
+                    "errmsg": "文件已存在",
+                }
+            else:
+                result = get_download_url(lecture, user_id, access_token)
         if extensive_or_not == True:
-            result = get_cram_class(lecture, user_id, access_token)
             filename = f'第{count}讲_延伸内容.mp4'
+            if isoverride == False and os.path.exists(os.path.join(custom_down_path, course_name, filename)) and not os.path.exists(os.path.join(custom_down_path, course_name, filename + '.aria2')):
+                result = {
+                    "url": "",
+                    "success": False,
+                    "errmsg": "文件已存在",
+                }
+            else:
+                result = get_cram_class(lecture, user_id, access_token)
         download_urls[filename] = result
         count += 1
     count = 2
@@ -269,6 +301,9 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
         else:
             tkinterlist[filename]['percentage'].configure(text='下载失败')
             tkinterlist[filename]['speed'].configure(text=download_urls[filename]['errmsg'])
+            if download_urls[filename]['errmsg'] == "文件已存在":
+                tkinterlist[filename]['percentage'].configure(text='100%')
+                tkinterlist[filename]['progress']['value'] = 100
     thread = threading.Thread(target=update_download_status)
     thread.start()
     root.mainloop()
