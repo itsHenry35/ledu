@@ -93,6 +93,8 @@ def download1(uid, token):
 
     extensiveornot = ttk.Checkbutton(text='延伸课程', bootstyle="default-square-toggle", variable=var)
     extensiveornot.pack(anchor='w')
+    override = ttk.Checkbutton(text='覆盖已下载文件', bootstyle="default-square-toggle", variable=isoverride)
+    override.pack(anchor='w')
     submit = ttk.Button(text='提交', bootstyle="primary", command=submit)
     submit.pack(anchor='w')
     selectpath = ttk.Button(text='选择自定义路径（可不选，默认为程序所在目录）', bootstyle="primary-outline-toolbutton",
