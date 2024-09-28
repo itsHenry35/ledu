@@ -42,7 +42,7 @@ def wait_for_aria2():
         except requests.ConnectionError:
             print("retry")
             time.sleep(1)
-    
+
     return False
 
 
