@@ -42,8 +42,8 @@ def wait_for_aria2():
         except requests.ConnectionError:
             print("retry")
             time.sleep(1)
-    else:
-        return False
+    
+    return False
 
 
 def get_lecturers(course_list, user_id, access_token):
