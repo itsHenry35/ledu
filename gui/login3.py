@@ -36,10 +36,10 @@ def login3(token, uid_now):
         global final_account
         global result
         result = {
-            'success': 'True'
+            'success': True
         }
         if final_account['isCurrentLoginAccount']:
-            result["success"] = 'False'
+            result["success"] = False
         else:
             uidnext = final_account['pu_uid']
             result_switch = switch_account(uid_now, uidnext, token)

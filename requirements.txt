@@ -1,5 +1,5 @@
 requests
 tk
 ttkbootstrap
-pyaria2
+aria2p
 sentry-sdk

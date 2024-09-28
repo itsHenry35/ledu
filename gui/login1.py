@@ -15,14 +15,14 @@ def password_privacy_switch(password):
 def switch_to_sms_login(username, root):
     global username_value, sms, exitbool
     exitbool = False
-    sms = 'True'
+    sms = True
     username_value = username.get().replace('\r', '').replace('\n', '').replace('\t', '')
     root.destroy()
 
 
 def nextpage(username, password, root):
     global username_value, password_value, sms, exitbool
-    sms = 'False'
+    sms = False
     username_value = username.get().replace('\r', '').replace('\n', '').replace('\t', '')
     password_value = password.get().replace('\r', '').replace('\n', '').replace('\t', '')
     if not username_value or not password_value:
@@ -59,14 +59,14 @@ def login1(username_default=""):
     importlib.reload(ttk.style)
     if exitbool:
         sys.exit()
-    if sms == 'False':
-        return {'pwdlogin': 'True',
+    if sms == False:
+        return {'pwdlogin': True,
                 'usrname': username_value,
                 'pwd': password_value,
                 }
-    if sms == 'True':
+    if sms == True:
         return {
-            'pwdlogin': 'False',
+            'pwdlogin': False,
             'phonenum': username_value
         }
 

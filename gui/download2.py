@@ -10,7 +10,7 @@ import tkinter
 
 import requests
 import ttkbootstrap as ttk
-from pyaria2 import Aria2RPC
+import aria2p
 
 
 def _async_raise(tid, exctype):
@@ -81,7 +81,7 @@ def get_download_url(lecture, user_id, access_token):
     }
     video_url = ""
     error_message = ""
-    success = 'False'
+    success = False
     if live_type == 'SMALL_GROUPS_V2_MODE' or live_type == 'COMBINE_SMALL_CLASS_MODE':
         url = 'https://classroom-api-online.saasp.vdyoo.com/playback/v1/video/init'
         response = requests.get(url, headers=headers)
@@ -89,9 +89,9 @@ def get_download_url(lecture, user_id, access_token):
         for url in video_data["videoUrls"]:
             if ".mp4" in url:
                 video_url = url
-                success = 'True'
+                success = True
                 break
-        if success == 'False':
+        if success == False:
             error_message = video_data['message']
     if live_type == 'RECORD_MODE':
         url = 'https://classroom-api-online.saasp.vdyoo.com/classroom-ai/record/v1/resources'
@@ -101,11 +101,11 @@ def get_download_url(lecture, user_id, access_token):
             definitions = video_data['definitions']
             values = list(definitions.values())
             video_url = values[-1][0]
-            success = 'True'
+            success = True
         except:
             error_message = video_data['message']
-            success = 'False'
-    if success == 'False' and error_message == "":
+            success = False
+    if success == False and error_message == "":
         error_message = "未找到回放"
         print(live_type)
     return {
@@ -146,7 +146,7 @@ def get_cram_class(course, user_id, access_token):
         definitions = video_data['definitions']
         values = list(definitions.values())
         video_url = values[-1][0]
-        success = 'True'
+        success = True
     except:
         error_message = video_data['message']
     return {
@@ -156,7 +156,7 @@ def get_cram_class(course, user_id, access_token):
     }
 
 
-def download2(course_list, user_id, access_token, aria2_path, aria2_config, custom_down_path, now, all, isWindows):
+def download2(course_list, user_id, access_token, aria2_path, aria2_config, custom_down_path, now, all, isWindows, isoverride):
     global aria2process
     if custom_down_path == '':
         custom_down_path = "乐读-下载"
@@ -166,7 +166,7 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
 
     def aria2_download(link, path, filename):
         options = {"dir": path, "out": filename}
-        download_ = jsonrpc.addUri([link], options=options)
+        download_ = jsonrpc.add_uri([link], options=options)
         gid_group[filename] = download_
 
     def update_download_status():
@@ -179,9 +179,9 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
                 continue
             all_success = True
             for filename in gid_group:
-                stat = jsonrpc.tellStatus(gid=str(gid_group[filename]))
+                stat = jsonrpc.tell_status(gid=str(gid_group[filename]))
                 if stat['status'] != 'complete':
-                    stat = jsonrpc.tellStatus(str(gid_group[filename]))
+                    stat = jsonrpc.tell_status(str(gid_group[filename]))
                     if int(stat['totalLength']) != 0 and int(stat['completedLength']) != 0:
                         tkinterlist[filename]['progress']['value'] = int(stat['completedLength']) / int(
                             stat['totalLength']) * 100
@@ -207,10 +207,10 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
 
     def switchpauseresume(button):
         if button['text'] == '暂停':
-            jsonrpc.pauseAll()
+            jsonrpc.pause_all()
             pauseresume_button.configure(text='继续')
         elif button['text'] == '继续':
-            jsonrpc.unpauseAll()
+            jsonrpc.unpause_all()
             pauseresume_button.configure(text='暂停')
 
     root = ttk.Window(title='乐读视频下载器-下载', themename="morph")
@@ -218,16 +218,19 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
     if now==1:
         aria2process = subprocess.Popen([aria2_path, "--conf-path", aria2_config], shell=isWindows)
     time.sleep(1)
-    jsonrpc = Aria2RPC()
+    jsonrpc = aria2p.Client(
+        host="http://localhost",
+        port=6800
+    )
     lecturers = get_lecturers(course_list, user_id, access_token)
     download_urls = {}
     extensive_or_not = course_list['extensiveornot']
     count = 1
     for lecture in lecturers:
-        if extensive_or_not == 'False':
+        if extensive_or_not == False:
             result = get_download_url(lecture, user_id, access_token)
             filename = f'第{count}讲.mp4'
-        if extensive_or_not == 'True':
+        if extensive_or_not == True:
             result = get_cram_class(lecture, user_id, access_token)
             filename = f'第{count}讲_延伸内容.mp4'
         download_urls[filename] = result
@@ -261,7 +264,7 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
     pauseresume_button = ttk.Button(text='暂停', command=lambda: switchpauseresume(pauseresume_button))
     pauseresume_button.grid(row=count + 1, column=1)
     for filename in download_urls:
-        if download_urls[filename]['success'] == 'True':
+        if download_urls[filename]['success'] == True:
             aria2_download(download_urls[filename]['url'], download_path, filename)
         else:
             tkinterlist[filename]['percentage'].configure(text='下载失败')

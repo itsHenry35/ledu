@@ -45,7 +45,7 @@ def switch_to_pwd(username, root):
     global credentials, exitbool
     exitbool = False
     credentials = {
-        'pwdlogin': 'True',
+        'pwdlogin': True,
         'phonenum': username.get(),
     }
     root.destroy()
@@ -55,7 +55,7 @@ def next_page(username, password, root, zonevar):
     global credentials, exitbool
     exitbool = False
     credentials = {
-        'pwdlogin': 'False',
+        'pwdlogin': False,
         'phonenum': username.get(),
         'code': password.get(),
         'zonecode': zonelist[zonevar.get()]

@@ -58,7 +58,7 @@ def login2_sms(phone_num, sms_code, zone_code):
         root.destroy()
         global return_data
         return_data = {
-            'success': 'False'
+            'success': False
         }
 
     def next_step():
@@ -66,7 +66,7 @@ def login2_sms(phone_num, sms_code, zone_code):
         root.destroy()
         data = login(login_result['data'])
         return_data = {
-            'success': 'True',
+            'success': True,
             'data': data,
         }
 

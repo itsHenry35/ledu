@@ -22,11 +22,11 @@ def pwd_verify(user, password):
     response = requests.post(url, data=data, headers=headers)
     json_response = response.json()
     if json_response['errcode'] == 0:
-        return {'success': 'True',
+        return {'success': True,
                 'data': json_response['data'],
                 'msg': json_response['errmsg']
                 }
-    return {'success': 'False',
+    return {'success': False,
             'msg': json_response['errmsg']
             }
 
@@ -55,7 +55,7 @@ def login2(username, password):
         root.destroy()
         global result_
         result_ = {
-            'success': 'False'
+            'success': False
         }
 
     def next_step():
@@ -63,14 +63,14 @@ def login2(username, password):
         root.destroy()
         data = login(login_result['data'])
         result_ = {
-            'success': 'True',
+            'success': True,
             'data': data,
         }
 
     root = ttk.Window(title='乐读视频下载器-登陆', themename="morph")
     root.geometry("")
     login_result = pwd_verify(username, password)
-    if login_result['success'] == 'True':
+    if login_result['success'] == True:
         text1 = ttk.Label(text=login_result['msg'])
         text1.grid(row=1)
         submit = ttk.Button(text='下一步', bootstyle="primary", command=next_step)
