@@ -187,7 +187,6 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
         gid_group[filename] = download_
 
     def update_download_status():
-        global aria2process
         while True:
             if pauseresume_button['text'] == '继续':
                 for filename in gid_group:
