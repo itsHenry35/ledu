@@ -179,7 +179,7 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
         custom_down_path = "乐读-下载"
     gid_group = {}
 
-    final = True if now == all else False
+    final = now == all
 
     def aria2_download(link, path, filename):
         options = {"dir": path, "out": filename}

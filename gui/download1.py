@@ -42,7 +42,7 @@ def download1(uid, token):
                 returnlist[count]['tutorid'] = courselist[numlist[i]]
                 returnlist[count]['courseid'] = idlist[numlist[i]]
                 returnlist[count]['name'] = numlist[i]
-                returnlist[count]['extensiveornot'] = True if var.get() == 1 else False
+                returnlist[count]['extensiveornot'] = var.get() == 1
                 count += 1
         if count == 0:
             mb.showwarning(title='警告', message='未选择课程')
