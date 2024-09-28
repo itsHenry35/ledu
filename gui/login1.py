@@ -59,12 +59,12 @@ def login1(username_default=""):
     importlib.reload(ttk.style)
     if exitbool:
         sys.exit()
-    if sms == False:
+    if sms is False:
         return {'pwdlogin': True,
                 'usrname': username_value,
                 'pwd': password_value,
                 }
-    if sms == True:
+    if sms is True:
         return {
             'pwdlogin': False,
             'phonenum': username_value

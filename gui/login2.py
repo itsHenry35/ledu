@@ -70,7 +70,7 @@ def login2(username, password):
     root = ttk.Window(title='乐读视频下载器-登陆', themename="morph")
     root.geometry("")
     login_result = pwd_verify(username, password)
-    if login_result['success'] == True:
+    if login_result['success'] is True:
         text1 = ttk.Label(text=login_result['msg'])
         text1.grid(row=1)
         submit = ttk.Button(text='下一步', bootstyle="primary", command=next_step)
