@@ -30,24 +30,24 @@ def set_global_variable(data):
 
 
 def perform_login(credentials):
-    if credentials['pwdlogin'] == True:
+    if credentials['pwdlogin'] is True:
         return login2(credentials['usrname'], credentials['pwd'])
     smscredential = login1_sms(credentials['phonenum'])
-    if smscredential['pwdlogin'] == False:
+    if smscredential['pwdlogin'] is False:
         return login2_sms(smscredential['phonenum'], smscredential['code'], smscredential['zonecode'])
-    if smscredential['pwdlogin'] == True:
+    if smscredential['pwdlogin'] is True:
         return perform_login(login1(str(smscredential['phonenum'])))
 
 
 def login():
     credentials = login1()
     loginresult = perform_login(credentials)
-    while loginresult['success'] == False:
+    while loginresult['success'] is False:
         login()
         return
     set_global_variable(loginresult['data'])
     datanext = login3(token, uid)
-    if datanext['success'] == True:
+    if datanext['success'] is True:
         set_global_variable(datanext['data'])
 
 
