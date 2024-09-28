@@ -33,7 +33,6 @@ def login3(token, uid_now):
         final_account = account_list[var.get()]
 
     def submit():
-        global final_account
         global result
         result = {
             'success': True
