@@ -108,7 +108,7 @@ def get_download_url(lecture, user_id, access_token):
                 video_url = url
                 success = True
                 break
-        if success == False:
+        if success is False:
             error_message = video_data['message']
     if live_type == 'RECORD_MODE':
         url = 'https://classroom-api-online.saasp.vdyoo.com/classroom-ai/record/v1/resources'
@@ -122,7 +122,7 @@ def get_download_url(lecture, user_id, access_token):
         except:
             error_message = video_data['message']
             success = False
-    if success == False and error_message == "":
+    if success is False and error_message == "":
         error_message = "未找到回放"
         print(live_type)
     return {
@@ -234,7 +234,7 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
     root.geometry("")
     if now==1:
         aria2process = subprocess.Popen([aria2_path, "--conf-path", aria2_config], shell=isWindows)
-    if wait_for_aria2() == False:
+    if wait_for_aria2() is False:
         raise Exception("Aria2c failed to start")
     jsonrpc = aria2p.Client(
         host="http://localhost",
@@ -245,9 +245,9 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
     extensive_or_not = course_list['extensiveornot']
     count = 1
     for lecture in lecturers:
-        if extensive_or_not == False:
+        if extensive_or_not is False:
             filename = f'第{count}讲.mp4'
-            if isoverride == False and os.path.exists(os.path.join(custom_down_path, course_name, filename)) and not os.path.exists(os.path.join(custom_down_path, course_name, filename + '.aria2')):
+            if isoverride is False and os.path.exists(os.path.join(custom_down_path, course_name, filename)) and not os.path.exists(os.path.join(custom_down_path, course_name, filename + '.aria2')):
                 result = {
                     "url": "",
                     "success": False,
@@ -255,9 +255,9 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
                 }
             else:
                 result = get_download_url(lecture, user_id, access_token)
-        if extensive_or_not == True:
+        if extensive_or_not is True:
             filename = f'第{count}讲_延伸内容.mp4'
-            if isoverride == False and os.path.exists(os.path.join(custom_down_path, course_name, filename)) and not os.path.exists(os.path.join(custom_down_path, course_name, filename + '.aria2')):
+            if isoverride is False and os.path.exists(os.path.join(custom_down_path, course_name, filename)) and not os.path.exists(os.path.join(custom_down_path, course_name, filename + '.aria2')):
                 result = {
                     "url": "",
                     "success": False,
@@ -296,7 +296,7 @@ def download2(course_list, user_id, access_token, aria2_path, aria2_config, cust
     pauseresume_button = ttk.Button(text='暂停', command=lambda: switchpauseresume(pauseresume_button))
     pauseresume_button.grid(row=count + 1, column=1)
     for filename in download_urls:
-        if download_urls[filename]['success'] == True:
+        if download_urls[filename]['success'] is True:
             aria2_download(download_urls[filename]['url'], download_path, filename)
         else:
             tkinterlist[filename]['percentage'].configure(text='下载失败')
