@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10.11
+          python-version: 3.9.13
          
       - name: Install Dependencies
         run: |
@@ -55,7 +55,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10.11
+          python-version: 3.12.3
          
       - name: Install Dependencies
         run: |
@@ -81,7 +81,7 @@ jobs:
           name: "Linux-build"
           path: "/home/runner/work/ledu/ledu/dist"
 
-  Build_Macos:
+  Build_Macos_Silicon:
     runs-on: macos-latest
 
     steps:
@@ -90,7 +90,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10.11
+          python-version: 3.12.6
          
       - name: Install Dependencies
         run: |
@@ -113,5 +113,43 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: "MacOs-build"
+          name: "MacOs-build-Arm64"
           path: "/Users/runner/work/ledu/ledu/dist/"
+
+
+
+  Build_Macos_Intel:
+    runs-on: macos-latest-large
+
+    steps:
+      - uses: actions/checkout@v4
+          
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12.6
+         
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+          
+      
+      - name: Build and compress the artifact
+        run: |
+          pyinstaller --noconfirm --onefile --console --icon "/Users/runner/work/ledu/ledu/ledu.ico" --add-data "/Users/runner/work/ledu/ledu/bin/aria2c_darwin_x64:bin/" --add-data "/Users/runner/work/ledu/ledu/bin/aria2_darwin.conf:bin/" "/Users/runner/work/ledu/ledu/main.py"
+          SHORT_COMMIT_ID=${GITHUB_SHA::7}
+          if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
+            FILENAME=ledu_download_macos_pr_$SHORT_COMMIT_ID
+          else
+            FILENAME=ledu_download_macos_$SHORT_COMMIT_ID
+          fi             
+          mv /Users/runner/work/ledu/ledu/dist/main /Users/runner/work/ledu/ledu/dist/$FILENAME
+          
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: "MacOs-build-x86_64"
+          path: "/Users/runner/work/ledu/ledu/dist/"
+
