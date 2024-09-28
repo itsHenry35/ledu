@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.2.0](https://github.com/itsHenry35/ledu/compare/v2.1.1...v2.2.0) (2024-09-28)
+
+
+### Features
+
+* support non-override ([3dacc63](https://github.com/itsHenry35/ledu/commit/3dacc6397d1f18018146bf55bd8f7594edc1ae5a))
+
+
+### Code Refactoring
+
+* add newline at end of file ([398a91b](https://github.com/itsHenry35/ledu/commit/398a91b28b2f5a7b9a904f7c3d6608f35c8fa7a0))
+* refactor `if` expression ([7431ee2](https://github.com/itsHenry35/ledu/commit/7431ee26a26115b4ac83e4c72b76958b9e28d79e))
+* refactor useless `else` block in the loop ([384edad](https://github.com/itsHenry35/ledu/commit/384edad57f691a1bb98cbf5b68633341372ef119))
+* remove unnecessary whitespace ([8cf9274](https://github.com/itsHenry35/ledu/commit/8cf9274bbd8cb6632d558691e883c640565a4a08))
+* remove unused global variable ([cada944](https://github.com/itsHenry35/ledu/commit/cada944cb6f93d4f667f216fc90a713b07637342))
+* replace multiple `==` checks with `in` ([7c6712b](https://github.com/itsHenry35/ledu/commit/7c6712bb297d36ff3920432bc70c271dc2ae60bf))
+* use identity check for comparison to a singleton ([c7fd146](https://github.com/itsHenry35/ledu/commit/c7fd1465101c8846f3ebaed7f496c02e1734205d))
+
 ## [2.1.1](https://github.com/itsHenry35/ledu/compare/v2.1.0...v2.1.1) (2024-09-16)
 
 
