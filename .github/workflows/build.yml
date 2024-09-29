@@ -96,8 +96,8 @@ jobs:
         run: |
           pyinstaller --noconfirm --onefile --windowed --icon "ledu.ico" --add-data "bin/aria2c_darwin_arm64:bin/" --add-data "bin/aria2_darwin.conf:bin/" "main.py"
           rm dist/main
-          mv dist/main.app/ dist/ledu_download_macos_${{ github.event.release.tag_name }}.app/
-          cd dist && zip -r -X ../ledu_download_macos_${{ github.event.release.tag_name }}.zip .
+          mv dist/main.app/ dist/ledu_download_macos_arm64_${{ github.event.release.tag_name }}.app/
+          cd dist && zip -r -X ../ledu_download_macos_arm64_${{ github.event.release.tag_name }}.zip .
 
       - name: Release
         uses: svenstaro/upload-release-action@v2
@@ -105,7 +105,44 @@ jobs:
           tag: ${{ github.event.release.tag_name }}
           release_name: ${{ github.event.release.tag_name }}
           overwrite: true
-          file: /Users/runner/work/ledu/ledu/ledu_download_macos_${{ github.event.release.tag_name }}.zip
+          file: /Users/runner/work/ledu/ledu/ledu_download_macos_arm64_${{ github.event.release.tag_name }}.zip
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: "MacOs-build"
+          path: "/Users/runner/work/ledu/ledu/dist/"
+
+  Build_Macos_Intel:
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12.6
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build and compress the artifact
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --icon "ledu.ico" --add-data "bin/aria2c_darwin_x64:bin/" --add-data "bin/aria2_darwin.conf:bin/" "main.py"
+          rm dist/main
+          mv dist/main.app/ dist/ledu_download_macos_x86_64_${{ github.event.release.tag_name }}.app/
+          cd dist && zip -r -X ../ledu_download_macos_x86_64_${{ github.event.release.tag_name }}.zip .
+
+      - name: Release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          tag: ${{ github.event.release.tag_name }}
+          release_name: ${{ github.event.release.tag_name }}
+          overwrite: true
+          file: /Users/runner/work/ledu/ledu/ledu_download_macos_x86_64_${{ github.event.release.tag_name }}.zip
 
       - name: Upload
         uses: actions/upload-artifact@v4
