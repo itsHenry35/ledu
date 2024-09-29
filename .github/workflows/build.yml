@@ -14,7 +14,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10.11
+          python-version: 3.8.10
 
       - name: Install Dependencies
         run: |
@@ -24,8 +24,8 @@ jobs:
 
       - name: Build and rename the artifact
         run: |
-          pyinstaller --noconfirm --onefile --windowed --icon "D:/a/ledu/ledu/ledu.ico" --add-data "D:/a/ledu/ledu/bin/aria2c_win32_x64.exe;bin/" --add-data "D:/a/ledu/ledu/bin/aria2_win32.conf;bin/"  "D:/a/ledu/ledu/main.py"
-          ren D:\a\ledu\ledu\dist\main.exe D:\a\ledu\ledu\dist\ledu_download_win64_${{ github.event.release.tag_name }}.exe
+          pyinstaller --noconfirm --onefile --windowed --icon "ledu.ico" --add-data "bin/aria2c_win32_x64.exe;bin/" --add-data "bin/aria2_win32.conf;bin/"  "main.py"
+          ren .\dist\main.exe ledu_download_win64_${{ github.event.release.tag_name }}.exe
 
       - name: Release
         uses: svenstaro/upload-release-action@v2
@@ -49,7 +49,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10.11
+          python-version: 3.12.3
 
       - name: Install Dependencies
         run: |
@@ -59,8 +59,8 @@ jobs:
 
       - name: Build and rename the artifact
         run: |
-          pyinstaller --noconfirm --onefile --windowed --icon "/home/runner/work/ledu/ledu/ledu.ico" --add-data "/home/runner/work/ledu/ledu/bin/aria2c_linux_x64:bin/" --add-data "/home/runner/work/ledu/ledu/bin/aria2_linux.conf:bin/" "/home/runner/work/ledu/ledu/main.py"
-          mv /home/runner/work/ledu/ledu/dist/main /home/runner/work/ledu/ledu/dist/ledu_download_linux_amd64_${{ github.event.release.tag_name }}
+          pyinstaller --noconfirm --onefile --windowed --icon "ledu.ico" --add-data "bin/aria2c_linux_x64:bin/" --add-data "bin/aria2_linux.conf:bin/" "main.py"
+          mv dist/main dist/ledu_download_linux_amd64_${{ github.event.release.tag_name }}
           
       - name: Release
         uses: svenstaro/upload-release-action@v2
@@ -76,7 +76,7 @@ jobs:
           name: "Linux-build"
           path: "/home/runner/work/ledu/ledu/dist"
 
-  Build_Macos:
+  Build_Macos_Silicon:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
@@ -84,7 +84,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10.11
+          python-version: 3.12.6
 
       - name: Install Dependencies
         run: |
@@ -94,11 +94,10 @@ jobs:
 
       - name: Build and compress the artifact
         run: |
-          pyinstaller --noconfirm --onefile --windowed --icon "/Users/runner/work/ledu/ledu/ledu.ico" --add-data "/Users/runner/work/ledu/ledu/bin/aria2c_darwin_x64:bin/" --add-data "/Users/runner/work/ledu/ledu/bin/aria2_darwin.conf:bin/" "/Users/runner/work/ledu/ledu/main.py"
-          rm /Users/runner/work/ledu/ledu/dist/main
-          mv /Users/runner/work/ledu/ledu/dist/main.app/ /Users/runner/work/ledu/ledu/dist/ledu_download_macos_${{ github.event.release.tag_name }}.app/
-          mv /Users/runner/work/ledu/ledu/dist/ /Users/runner/work/ledu/ledu/ledu_download_macos/
-          cd /Users/runner/work/ledu/ledu/ledu_download_macos/ && zip -r -X /Users/runner/work/ledu/ledu/ledu_download_macos_${{ github.event.release.tag_name }}.zip .
+          pyinstaller --noconfirm --onefile --windowed --icon "ledu.ico" --add-data "bin/aria2c_darwin_arm64:bin/" --add-data "bin/aria2_darwin.conf:bin/" "main.py"
+          rm dist/main
+          mv dist/main.app/ dist/ledu_download_macos_${{ github.event.release.tag_name }}.app/
+          cd dist && zip -r -X ../ledu_download_macos_${{ github.event.release.tag_name }}.zip .
 
       - name: Release
         uses: svenstaro/upload-release-action@v2
@@ -112,4 +111,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "MacOs-build"
-          path: "/Users/runner/work/ledu/ledu/ledu_download_macos/"
+          path: "/Users/runner/work/ledu/ledu/dist/"
