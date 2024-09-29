@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.2](https://github.com/itsHenry35/ledu/compare/v2.2.1...v2.2.2) (2024-09-29)
+
+
+### CI
+
+* release macos intel [skip ci] ([8a50cb9](https://github.com/itsHenry35/ledu/commit/8a50cb9ef85ca95044a051831aec7e5c3a23c0c7))
+
 ## [2.2.1](https://github.com/itsHenry35/ledu/compare/v2.2.0...v2.2.1) (2024-09-29)
 
 
