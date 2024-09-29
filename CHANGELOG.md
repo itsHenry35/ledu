@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.2.1](https://github.com/itsHenry35/ledu/compare/v2.2.0...v2.2.1) (2024-09-29)
+
+
+### CI
+
+* build macos intel ([d730cd7](https://github.com/itsHenry35/ledu/commit/d730cd753766a549d80283e6e9613be7634f0012))
+* build with 3.8.10 to try with windows 7 ([6ca974b](https://github.com/itsHenry35/ledu/commit/6ca974bec7d4d713cb198d4c004241d66b7b41e3))
+* Build with MacOS 13 ([ae18c60](https://github.com/itsHenry35/ledu/commit/ae18c60e6b57252176c04f0f5608f649559de080))
+* simplify code ([ea94e6b](https://github.com/itsHenry35/ledu/commit/ea94e6b64dfe986f9298e4eaef8804a434580fa1))
+* sync to release [skip ci] ([49b1e5a](https://github.com/itsHenry35/ledu/commit/49b1e5a5cf653da73b61e306651d8e5eb71bd899))
+
 ## [2.2.0](https://github.com/itsHenry35/ledu/compare/v2.1.1...v2.2.0) (2024-09-28)
 
 
