@@ -104,9 +104,9 @@ jobs:
           pyinstaller --noconfirm --onefile --console --icon "ledu.ico" --add-data "bin/aria2c_darwin_arm64:bin/" --add-data "bin/aria2_darwin.conf:bin/" "main.py"
           SHORT_COMMIT_ID=${GITHUB_SHA::7}
           if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
-            FILENAME=ledu_download_macos_pr_$SHORT_COMMIT_ID
+            FILENAME=ledu_download_macos_arm64_pr_$SHORT_COMMIT_ID
           else
-            FILENAME=ledu_download_macos_$SHORT_COMMIT_ID
+            FILENAME=ledu_download_macos_arm64_$SHORT_COMMIT_ID
           fi             
           mv dist/main dist/$FILENAME
           
@@ -141,9 +141,9 @@ jobs:
           pyinstaller --noconfirm --onefile --console --icon "/Users/runner/work/ledu/ledu/ledu.ico" --add-data "/Users/runner/work/ledu/ledu/bin/aria2c_darwin_x64:bin/" --add-data "/Users/runner/work/ledu/ledu/bin/aria2_darwin.conf:bin/" "/Users/runner/work/ledu/ledu/main.py"
           SHORT_COMMIT_ID=${GITHUB_SHA::7}
           if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
-            FILENAME=ledu_download_macos_pr_$SHORT_COMMIT_ID
+            FILENAME=ledu_download_macos_x86_64_pr_$SHORT_COMMIT_ID
           else
-            FILENAME=ledu_download_macos_$SHORT_COMMIT_ID
+            FILENAME=ledu_download_macos_x86_64_$SHORT_COMMIT_ID
           fi             
           mv dist/main dist/$FILENAME
           
