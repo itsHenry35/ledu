@@ -110,7 +110,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: "MacOs-build"
+          name: "MacOs-build-arm64"
           path: "/Users/runner/work/ledu/ledu/dist/"
 
   Build_Macos_Intel:
@@ -147,5 +147,5 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: "MacOs-build"
+          name: "MacOs-build-x86_64"
           path: "/Users/runner/work/ledu/ledu/dist/"
