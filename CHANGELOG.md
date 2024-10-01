@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.3](https://github.com/itsHenry35/ledu/compare/v2.2.2...v2.2.3) (2024-10-01)
+
+
+### CI
+
+* Fix for duplicate name [skip ci] ([57f1282](https://github.com/itsHenry35/ledu/commit/57f1282490fd720a085952940416bc3a32bf765c))
+
 ## [2.2.2](https://github.com/itsHenry35/ledu/compare/v2.2.1...v2.2.2) (2024-09-29)
 
 
