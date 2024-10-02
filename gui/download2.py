@@ -175,8 +175,6 @@ def get_cram_class(course, user_id, access_token):
 
 def download2(course_list, user_id, access_token, aria2_path, aria2_config, custom_down_path, now, all, isWindows, isoverride):
     global aria2process
-    if custom_down_path == '':
-        custom_down_path = "乐读-下载"
     gid_group = {}
 
     final = now == all
