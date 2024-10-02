@@ -2,6 +2,7 @@ import requests
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import importlib
+import sys
 
 
 def pwd_verify(user, password):
@@ -52,21 +53,25 @@ def login(data):
 
 def login2(username, password):
     def login_again():
+        global result_submit, exitbool
+        exitbool = False
         root.destroy()
-        global result_
-        result_ = {
+        result_submit = {
             'success': False
         }
 
     def next_step():
-        global result_
+        global result_submit, exitbool
+        exitbool = False
         root.destroy()
         data = login(login_result['data'])
-        result_ = {
+        result_submit = {
             'success': True,
             'data': data,
         }
 
+    global exitbool
+    exitbool = True
     root = ttk.Window(title='乐读视频下载器-登陆', themename="morph")
     root.geometry("")
     login_result = pwd_verify(username, password)
@@ -82,4 +87,6 @@ def login2(username, password):
         submit.grid(row=2)
     root.mainloop()
     importlib.reload(ttk.style)
-    return result_
+    if exitbool:
+        sys.exit()
+    return result_submit
