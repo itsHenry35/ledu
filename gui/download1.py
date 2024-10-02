@@ -4,6 +4,7 @@ from ttkbootstrap.constants import *
 import importlib
 from tkinter.filedialog import askdirectory
 import tkinter.messagebox as mb
+import os
 
 
 def get_course(uid, token):
@@ -35,6 +36,7 @@ def download1(uid, token):
     global path
 
     def submit():
+        global path
         count = 0
         for i, widget in enumerate(widgetlist):
             if 'selected' in widget.state():
@@ -47,6 +49,14 @@ def download1(uid, token):
         if count == 0:
             mb.showwarning(title='警告', message='未选择课程')
         else:
+            if not os.path.exists(os.path.join(path, '乐读-下载')):
+                while not os.path.exists(os.path.join(path, '乐读-下载')):
+                    try:
+                        os.makedirs(os.path.join(path, '乐读-下载'))
+                    except:
+                        mb.showwarning("警告", "无法创建下载目录，请重新选择目录！")
+                        path = askdirectory()
+            path = os.path.join(path, '乐读-下载')
             root.destroy()
 
     root = ttk.Window(title='乐读视频下载器-下载', themename="morph")
