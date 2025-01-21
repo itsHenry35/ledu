@@ -29,7 +29,6 @@ def stop_thread(thread):
     _async_raise(thread.ident, SystemExit)
 
 def wait_for_aria2():
-    print("start")
     url = 'http://localhost:6800/jsonrpc'
     timeout = 10
     start_time = time.time()
@@ -40,7 +39,6 @@ def wait_for_aria2():
             if response.status_code == 200:
                 return True
         except requests.ConnectionError:
-            print("retry")
             time.sleep(1)
 
     return False
@@ -103,13 +101,19 @@ def get_download_url(lecture, user_id, access_token):
         url = 'https://classroom-api-online.saasp.vdyoo.com/playback/v1/video/init'
         response = requests.get(url, headers=headers)
         video_data = response.json()
-        for url in video_data["videoUrls"]:
-            if ".mp4" in url:
-                video_url = url
-                success = True
-                break
-        if success is False:
-            error_message = video_data['message']
+        try:
+            for url in video_data["videoUrls"]:
+                if ".mp4" in url:
+                    video_url = url
+                    success = True
+                    break
+            if success is False:
+                error_message = video_data['message']
+        except:
+            try:
+                error_message = video_data['message']
+            except:
+                pass
     if live_type == 'RECORD_MODE':
         url = 'https://classroom-api-online.saasp.vdyoo.com/classroom-ai/record/v1/resources'
         response = requests.get(url, headers=headers)
@@ -124,7 +128,6 @@ def get_download_url(lecture, user_id, access_token):
             success = False
     if success is False and error_message == "":
         error_message = "未找到回放"
-        print(live_type)
     return {
         "url": video_url,
         "success": success,
