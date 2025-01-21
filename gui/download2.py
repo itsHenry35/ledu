@@ -124,8 +124,10 @@ def get_download_url(lecture, user_id, access_token):
             video_url = values[-1][0]
             success = True
         except:
-            error_message = video_data['message']
-            success = False
+            try:
+                error_message = video_data['message']
+            except:
+                pass
     if success is False and error_message == "":
         error_message = "未找到回放"
     return {
