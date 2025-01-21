@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.3.0](https://github.com/itsHenry35/ledu/compare/v2.2.2...v2.3.0) (2025-01-21)
+
+
+### Features
+
+* avoid path permission denials ([cbd1516](https://github.com/itsHenry35/ledu/commit/cbd1516cc3af6669bf8be0dc7c432f2b02190a89))
+
+
+### Bug Fixes
+
+* aria2 override params ([005fe9c](https://github.com/itsHenry35/ledu/commit/005fe9c119680c7c66cbb4935f647db3b428d3d4))
+* sometimes video_data doesn't exist ([be7ab83](https://github.com/itsHenry35/ledu/commit/be7ab83fffd61d7cd78fad3af9bc6f26d4ac99e7))
+* undefined var when exiting ([1f15fa2](https://github.com/itsHenry35/ledu/commit/1f15fa2dff45318455bb65aab25baa129071d231))
+
+
+### CI
+
+* Fix for duplicate name [skip ci] ([57f1282](https://github.com/itsHenry35/ledu/commit/57f1282490fd720a085952940416bc3a32bf765c))
+
 ## [2.2.2](https://github.com/itsHenry35/ledu/compare/v2.2.1...v2.2.2) (2024-09-29)
 
 
