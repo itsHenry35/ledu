@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.1](https://github.com/itsHenry35/ledu/compare/v2.3.0...v2.3.1) (2025-01-21)
+
+
+### Bug Fixes
+
+* also fix unexpected response for record_mode [skip ci] ([53a5d8c](https://github.com/itsHenry35/ledu/commit/53a5d8c6f546f13e395d284679785bf47f6fd786))
+
 ## [2.3.0](https://github.com/itsHenry35/ledu/compare/v2.2.2...v2.3.0) (2025-01-21)
 
 
