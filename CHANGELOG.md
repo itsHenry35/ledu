@@ -1,5 +1,127 @@
 # Changelog
 
+## 1.0.0 (2025-01-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* import aria2c from motrix
+
+### Features
+
+* A button to open the downloading folder has been added ([69b6b99](https://github.com/itsHenry35/ledu/commit/69b6b996657fab3890f03f7375171d87a855a73d))
+* add error handling and error reporting ([c60795e](https://github.com/itsHenry35/ledu/commit/c60795e772a724cdf9327c10b28e483062c58bef))
+* add subject name to the downloaded files ([ea0d690](https://github.com/itsHenry35/ledu/commit/ea0d6901ed38644323bd42d179f7fa45c70c2cb6))
+* ask the user whether to open error reporting website ([bf8e9de](https://github.com/itsHenry35/ledu/commit/bf8e9de5c6600951ddf610b110c6f06a99614722))
+* avoid path permission denials ([a163f16](https://github.com/itsHenry35/ledu/commit/a163f16466fadea8f4943da692c39fe9debd5eaf))
+* better layout ([ff2a50f](https://github.com/itsHenry35/ledu/commit/ff2a50fc8e9923f096072b6e0fe22d97ae5c4a35))
+* don't pop up aria2 window ([a7a27e4](https://github.com/itsHenry35/ledu/commit/a7a27e44dc7343809d2e7cf2c9b34996d718c719))
+* import aria2c from motrix ([829e7ab](https://github.com/itsHenry35/ledu/commit/829e7ab078dc5d62d8a3fc3bb0a3a69bdc68796e))
+* new url place support and support for "无回放"courses ([ad6f275](https://github.com/itsHenry35/ledu/commit/ad6f2750e8e7c1a56ac02f6979fc89aa4862df49))
+* pause / resume button ([c5e2467](https://github.com/itsHenry35/ledu/commit/c5e2467a74ad3bdb0bebf60a704f82d931f7aeb8))
+* replace illegal characters ([f4eef4c](https://github.com/itsHenry35/ledu/commit/f4eef4c6bbdc57806e827df3dcac672e0c97d8db))
+* show progress (eg. 2/4 downloaded) ([7e1ef46](https://github.com/itsHenry35/ledu/commit/7e1ef46b932f38f1201c3f027be7742cd254b294))
+* support 'COMBINE_SMALL_CLASS_MODE' ([576336d](https://github.com/itsHenry35/ledu/commit/576336dcf7bd914c5226b20a10a0ee629cc9b21d))
+* support dynamic window resizing ([084da8c](https://github.com/itsHenry35/ledu/commit/084da8cf9059666a64ddd7feec3aeb29b6ddcd31))
+* support multi course downloading and custom download path ([bd5c3bf](https://github.com/itsHenry35/ledu/commit/bd5c3bff983efbde6577ecda09a009a770e1d1ce))
+* support non-override ([12db284](https://github.com/itsHenry35/ledu/commit/12db2844aa23d89d734535e8ce7e34aa079d8f50))
+* support scrollbar ([2ca84be](https://github.com/itsHenry35/ledu/commit/2ca84befd7bbaf703a3cb54f9d14a646ebfbb626))
+
+
+### Bug Fixes
+
+* also fix unexpected response for record_mode [skip ci] ([76a6c79](https://github.com/itsHenry35/ledu/commit/76a6c7918209fe6234ec3010478ae79269bb9955))
+* aria2 override params ([3d93f59](https://github.com/itsHenry35/ledu/commit/3d93f5931e340e357e1b8e3ffb0de20f83ea806c))
+* Chinese typo [skip ci] ([b1fb9d9](https://github.com/itsHenry35/ledu/commit/b1fb9d941d439dbdef2961d9195c9ef6d9bcdd8e))
+* do not commit complied python files ([09fa9bd](https://github.com/itsHenry35/ledu/commit/09fa9bd3366507d1eb104a921a185a383d4c4d89))
+* double quote to avoid usernames with a space on Windows ([2473d26](https://github.com/itsHenry35/ledu/commit/2473d26af02ef74d1da1a11a4c892de2834158fe))
+* error downloading after switching back from sms ([2083921](https://github.com/itsHenry35/ledu/commit/2083921e4083f79a039b755a646b8ba7444420e6))
+* fix logical error when error password occurs ([0b41246](https://github.com/itsHenry35/ledu/commit/0b41246aedafae6c261b7e2518d3a2461230a38c))
+* fix the error if the class hasn't started yet ([1f3513a](https://github.com/itsHenry35/ledu/commit/1f3513af1c3fa9c73b3b350556b7a064261cf53f))
+* Progress will be 99 percent even if the download has completed ([69b6b99](https://github.com/itsHenry35/ledu/commit/69b6b996657fab3890f03f7375171d87a855a73d))
+* sms not defined error while closing ([cf425ea](https://github.com/itsHenry35/ledu/commit/cf425ea43b573b2b2ec1062cdf57c2ea26ddc689))
+* sometimes video_data doesn't exist ([08c2b50](https://github.com/itsHenry35/ledu/commit/08c2b50e399655f340639ace3b1933ff927c6705))
+* Switching between sms and pwd may trigger loop ([343c9a3](https://github.com/itsHenry35/ledu/commit/343c9a3ddcf059dc5809bba466a714e35cbd00fd))
+* syntax error powershell varieble ([a90ad05](https://github.com/itsHenry35/ledu/commit/a90ad0569d2027851bedc5f9b1ea605aeee0d25a))
+* unable to download in linux ([3609d3f](https://github.com/itsHenry35/ledu/commit/3609d3f098ab190b2e49ef65f794e38af58003cc))
+* undefined var when exiting ([ef66a41](https://github.com/itsHenry35/ledu/commit/ef66a41d98ba0128d2a40ad8843437be164276a4))
+
+
+### Docs
+
+* improve error feedback ([3816138](https://github.com/itsHenry35/ledu/commit/38161385419a6946624f9de26d97db9a85a600ec))
+
+
+### Code Refactoring
+
+* add newline at end of file ([c96f753](https://github.com/itsHenry35/ledu/commit/c96f753ccb0155690c4851a7db88df1bee0fa530))
+* code refactor with idea [skip CI] ([dbb7edf](https://github.com/itsHenry35/ledu/commit/dbb7edf592b64837eee7e604fd4f3effe9a53332))
+* convert string with anomalous backslash into a raw string ([91d67fc](https://github.com/itsHenry35/ledu/commit/91d67fcd660cd8b802aa936a7b6c6b07fd5a0bbe))
+* convert string with anomalous backslash into a raw string ([91d67fc](https://github.com/itsHenry35/ledu/commit/91d67fcd660cd8b802aa936a7b6c6b07fd5a0bbe))
+* convert string with anomalous backslash into a raw string ([9494c77](https://github.com/itsHenry35/ledu/commit/9494c77331ceb655d6cc06f7339c5dad7301aca5))
+* import packages in separate lines ([bc4e160](https://github.com/itsHenry35/ledu/commit/bc4e160b0347986ee61c745a2408143f184abf08))
+* refactor `if` expression ([03a749c](https://github.com/itsHenry35/ledu/commit/03a749cd5c99b5c7cbe336be875e1d0da63d8c47))
+* refactor for code regulation with pycharm ([97bb384](https://github.com/itsHenry35/ledu/commit/97bb3843f8ef56aa323fcf934716a87829da6344))
+* refactor unnecessary `else` / `elif` when `if` block has a `raise` statement ([4c54ea5](https://github.com/itsHenry35/ledu/commit/4c54ea5be7a7639c0fb9d0a6d00b7c83f9c46551))
+* refactor unnecessary `else` / `elif` when `if` block has a `raise` statement ([4c54ea5](https://github.com/itsHenry35/ledu/commit/4c54ea5be7a7639c0fb9d0a6d00b7c83f9c46551))
+* refactor unnecessary `else` / `elif` when `if` block has a `raise` statement ([e5c15ef](https://github.com/itsHenry35/ledu/commit/e5c15ef3f60855bc3429846439aa5feebb5390e7))
+* refactor unnecessary `else` / `elif` when `if` block has a `return` statement ([c44fb19](https://github.com/itsHenry35/ledu/commit/c44fb19ffc488dfbaa96694aeede51b7c8e4124b))
+* refactor useless `else` block in the loop ([8dc935c](https://github.com/itsHenry35/ledu/commit/8dc935cbaf8ada4d26f2f5306f2b3307fac8d4b1))
+* remove unnecessary return statement ([37bf397](https://github.com/itsHenry35/ledu/commit/37bf397c9686971da48108472e5ddb49b00cb31d))
+* remove unnecessary return statement ([37bf397](https://github.com/itsHenry35/ledu/commit/37bf397c9686971da48108472e5ddb49b00cb31d))
+* remove unnecessary return statement ([5ce13d1](https://github.com/itsHenry35/ledu/commit/5ce13d10be24ec219c06db4c2504e605750f0115))
+* remove unnecessary whitespace ([a2abb90](https://github.com/itsHenry35/ledu/commit/a2abb90a56c13c1a56dbf748699df8460a684b47))
+* remove unnecessary whitespace ([facc29c](https://github.com/itsHenry35/ledu/commit/facc29c0ece47b8b60524b1aa5cad9fe5fba51b9))
+* remove unnecessary whitespace ([facc29c](https://github.com/itsHenry35/ledu/commit/facc29c0ece47b8b60524b1aa5cad9fe5fba51b9))
+* remove unnecessary whitespace ([f1c82ae](https://github.com/itsHenry35/ledu/commit/f1c82ae5d9ad8df396c866d10c851f969e0c7cdd))
+* remove unused global variable ([71aaa62](https://github.com/itsHenry35/ledu/commit/71aaa62ce31b6cb4f01cc0e5d1dd8d0843e16285))
+* replace multiple `==` checks with `in` ([2f878a0](https://github.com/itsHenry35/ledu/commit/2f878a0e47ea5748d74b0d288d031f47ba1b3df7))
+* replace multiple `==` checks with `in` ([d8ea79f](https://github.com/itsHenry35/ledu/commit/d8ea79fc3865eab5d40440933e207611a32ec42e))
+* rewrite all code ([cd241ab](https://github.com/itsHenry35/ledu/commit/cd241ab2cf921b22435a52d696df643184cc6016))
+* use identity check for comparison to a singleton ([0216d95](https://github.com/itsHenry35/ledu/commit/0216d95d4d0d531d8c8bb5d7a2f1d781d7467f87))
+
+
+### Performance Improvements
+
+* only open aria2 process at first run ([2076d9c](https://github.com/itsHenry35/ledu/commit/2076d9cf86ed646f03536dbd32ded49ff596d46c))
+
+
+### CI
+
+* actions build debug bin ([6dd3c02](https://github.com/itsHenry35/ledu/commit/6dd3c02c3269b7820177bd718f45ab36aa5bb7f0))
+* add .deepsource.toml ([f696e94](https://github.com/itsHenry35/ledu/commit/f696e94b340a24a548f3b0334e0a3986a6dec6e2))
+* auto merge only when release ([0b077fd](https://github.com/itsHenry35/ledu/commit/0b077fd5d7bfa46d16516049a222b52f29b5bc3e))
+* auto merge release ([74dcaef](https://github.com/itsHenry35/ledu/commit/74dcaef551f825db67da6b598eeb20c197f918d0))
+* build macos intel ([16c05cd](https://github.com/itsHenry35/ledu/commit/16c05cd5ee0b2e0b1d468dd63b6b0e910818dccd))
+* build with 3.8.10 to try with windows 7 ([ab03805](https://github.com/itsHenry35/ledu/commit/ab03805eee953c1b183fbcdf4756c01da1f6a23f))
+* Build with MacOS 13 ([5f4de1d](https://github.com/itsHenry35/ledu/commit/5f4de1d8a1d2236a248c82741f4ad3e41fa81457))
+* don't move macos folder and fix windows build ([260fc6e](https://github.com/itsHenry35/ledu/commit/260fc6e57acc7daeec4e1d5fdc9d47bc7a6726c5))
+* don't run debug when changelog modified [skip ci] ([d9b3e4a](https://github.com/itsHenry35/ledu/commit/d9b3e4aa48f85151a041f658d05810ff4406c70c))
+* don't run github pages automatically ([77d6b9c](https://github.com/itsHenry35/ledu/commit/77d6b9ca9f973ab22f517315bf1f89b04b36e1be))
+* error debug aria2c path ([2b9e4b6](https://github.com/itsHenry35/ledu/commit/2b9e4b621b20074e9ffc0dccf79118e3ddcc6c6d))
+* fix another wrong usage ([f4cc16d](https://github.com/itsHenry35/ledu/commit/f4cc16d3f38f9721a80dbe2d27e6d85bc2987810))
+* fix auto merge ([83386a9](https://github.com/itsHenry35/ledu/commit/83386a916809421c2c41d93563b158ee089a4a8f))
+* fix broken CI because of empty version number ([d984210](https://github.com/itsHenry35/ledu/commit/d984210a8bb9eff59a159a6ede816fee4c8d2374))
+* Fix for duplicate name [skip ci] ([cdfb0f7](https://github.com/itsHenry35/ledu/commit/cdfb0f77cbe760024e2ff0f4047fa5c4d0b975a9))
+* fix release error ([0dbaba5](https://github.com/itsHenry35/ledu/commit/0dbaba56e527110e0d87574bf7406a02de7e514c))
+* fix windows syntax error ([a7261ec](https://github.com/itsHenry35/ledu/commit/a7261ec91e612018a749a3a46c5bfaca9c38d467))
+* fix wrong release tag and name ([80cd015](https://github.com/itsHenry35/ledu/commit/80cd015d2f3cddecbf3fd3696904b87129a11152))
+* include commit number in the debug binary ([dd7442f](https://github.com/itsHenry35/ledu/commit/dd7442f8b39086de8745c35cd3ec20157e1cfe22))
+* only run actions when release published to avoid running three times [skip ci] ([d9004f4](https://github.com/itsHenry35/ledu/commit/d9004f4430a66cfdcf0c4bbb05bb56a74bf20f23))
+* only upload to release when first released ([7eb05d2](https://github.com/itsHenry35/ledu/commit/7eb05d2c324dc7ecb78354c7548b274465312f6a))
+* release add version number ([2d6cb19](https://github.com/itsHenry35/ledu/commit/2d6cb19c3ad14f050d8e0c9b004be2f03e6eee62))
+* release macos intel [skip ci] ([d8e7ee7](https://github.com/itsHenry35/ledu/commit/d8e7ee71c9e0cf95bf928cc1de080929ae661d38))
+* release manually ([607c5d8](https://github.com/itsHenry35/ledu/commit/607c5d830b58135eec00f15e720319fbb4a76f28))
+* remove auto merge ([d0c53e9](https://github.com/itsHenry35/ledu/commit/d0c53e9aac32af335606a85932b4b5fa56fd7d18))
+* rename main.yml to build.yml ([1da8f39](https://github.com/itsHenry35/ledu/commit/1da8f39c350553f2e6914d50f40c3216fb5093f2))
+* run release again when changelog changed ([a453516](https://github.com/itsHenry35/ledu/commit/a453516b5972da1a61357bd8f58474d842c22bec))
+* simplify code ([1d4ce1a](https://github.com/itsHenry35/ledu/commit/1d4ce1a64e5576f3e8ef48b02f5505f7d36340b0))
+* sync to release [skip ci] ([974a390](https://github.com/itsHenry35/ledu/commit/974a390d462a9d9c957f0c27b2804c9d7b61110b))
+* upload debug binary for MacOS ([9acb393](https://github.com/itsHenry35/ledu/commit/9acb3934ad293a5eee391667ced536e3d277754f))
+* use console for debug version ([09613ba](https://github.com/itsHenry35/ledu/commit/09613bab09818b5358b7054332be637bd2426d10))
+* use ubuntu 20.04 for better compatibility ([ac0b268](https://github.com/itsHenry35/ledu/commit/ac0b2689a981d9ed03ffc5599139ec1c73b35657))
+* wrong filename ([561c5f2](https://github.com/itsHenry35/ledu/commit/561c5f25ba2681a8a64a05a9be1d1b33a2e95bfb))
+
 ## [2.3.1](https://github.com/itsHenry35/ledu/compare/v2.3.0...v2.3.1) (2025-01-21)
 
 
