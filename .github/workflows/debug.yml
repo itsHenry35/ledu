@@ -75,7 +75,7 @@ jobs:
           mv $APPNAME $FINAL_FILENAME
 
       - name: Upload Artifacts For Linux
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: "Linux-build"
           path: |
@@ -134,7 +134,7 @@ jobs:
           mv "$APPNAME.exe" "$FINAL_FILENAME"
 
       - name: Upload Artifacts For Windows
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: "Windows-build"
           path: |
@@ -228,19 +228,19 @@ jobs:
           mv "$FILENAME.apk" "$FINAL_FILENAME.apk"
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: "MacOS-ARM64-build"
           path: |
             tal_downloader_macos_arm64_*.zip
       - name: Upload Android Arm64 Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: "Android-ARM64-build"
           path: |
             tal_downloader_android_arm64_*.apk
       - name: Upload Android Arm Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: "Android-ARM-build"
           path: |
@@ -295,7 +295,7 @@ jobs:
           zip -r -X $FINAL_FILENAME.zip $FINAL_FILENAME.app
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: "MacOS-x86_64-build"
           path: tal_downloader_macos_x86_64_*.zip
