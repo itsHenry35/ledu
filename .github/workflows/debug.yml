@@ -154,7 +154,7 @@ jobs:
         run: go install fyne.io/tools/cmd/fyne@latest
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
         with:
           cmdline-tools-version: 12266719
 
