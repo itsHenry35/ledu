@@ -281,7 +281,7 @@ jobs:
             tal_downloader_android_arm_${{ github.event.release.tag_name }}.apk
 
   Build_MacOS_Intel:
-    runs-on: macos-13
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@v5
 
